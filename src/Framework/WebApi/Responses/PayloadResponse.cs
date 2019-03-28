@@ -20,7 +20,7 @@ namespace Framework.WebAPI.Responses
         {
             return new PayloadResponse<T>
             {
-                Data = succes ? data : default(T),
+                Data = data,
                 Success = succes
             };
         }
