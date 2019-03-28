@@ -3,9 +3,9 @@ using TransferFunds.Domain.Contracts;
 
 namespace TransferFunds.Domain.Validations
 {
-    public class PostTransFunderRequestValidator : AbstractValidator<PostTransFunderRequest>
+    public class PostTransferFundsRequestValidator : AbstractValidator<PostTransferFundsRequest>
     {
-        public PostTransFunderRequestValidator()
+        public PostTransferFundsRequestValidator()
         {
             RuleFor(r => r.To)
                 .NotEmpty()

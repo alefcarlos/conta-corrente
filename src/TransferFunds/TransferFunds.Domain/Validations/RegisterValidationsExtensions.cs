@@ -9,7 +9,7 @@ namespace TransferFunds.Domain.Validations
         public static IServiceCollection AddValidators(this IServiceCollection services)
         {
             // can then manually register validators
-            services.AddTransient<IValidator<PostTransFunderRequest>, PostTransFunderRequestValidator>();
+            services.AddTransient<IValidator<PostTransferFundsRequest>, PostTransferFundsRequestValidator>();
                 
             return services;
         }

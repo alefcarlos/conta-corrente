@@ -42,7 +42,7 @@ namespace WebApi.TransferFunds.Controllers.v1
         [HttpPost]
         [ProducesResponseType(typeof(PayloadResponse), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
-        public async Task<IActionResult> Post(PostTransFunderRequest request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Post(PostTransferFundsRequest request, CancellationToken cancellationToken)
         {
             var transfer = await _service.TransferAsync(request.From, request.To, request.Value, cancellationToken);
 

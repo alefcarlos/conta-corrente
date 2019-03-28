@@ -5,7 +5,7 @@ namespace TransferFunds.Domain.Contracts
     /// <summary>
     /// Request de transferência de valores entre contas
     /// </summary>
-    public class PostTransFunderRequest
+    public class PostTransferFundsRequest
     {
         /// <summary>
         /// Conta de origem
