@@ -1,4 +1,4 @@
-﻿using FluentValidation.Results;
+﻿using Framework.Shared;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,16 +14,16 @@ namespace TransferFunds.Application.Services
             _accountService = accountService;
         }
 
-        public async Task<ValidationResult> TransferAsync(Guid from, Guid to, decimal value, CancellationToken cancellationToken)
+        public async Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value, CancellationToken cancellationToken)
         {
-            var validation = new ValidationResult();
+            var validation = new ErrorResult();
 
             //Validar contas
             var fromExists = await _accountService.ExistsAccountByIDAsync(from, cancellationToken);
 
             if (!fromExists)
             {
-                validation.Errors.Add(new ValidationFailure("", "A conta de origem não existe!"));
+                validation.Add("A conta de origem não existe!");
                 return validation;
             }
 
@@ -31,7 +31,7 @@ namespace TransferFunds.Application.Services
 
             if (!toExists)
             {
-                validation.Errors.Add(new ValidationFailure("", "A conta de destino não existe!"));
+                validation.Add("A conta de destino não existe!");
                 return validation;
             }
 
@@ -39,7 +39,7 @@ namespace TransferFunds.Application.Services
             var fromBalance = await _accountService.GetAccountBalanceByIDAsync(from, cancellationToken);
             if (fromBalance < value)
             {
-                validation.Errors.Add(new ValidationFailure("", "O saldo da conta de origem não é o suficiente pra realizar a transferência"));
+                validation.Add("O saldo da conta de origem não é o suficiente pra realizar a transferência");
                 return validation;
             }
 
