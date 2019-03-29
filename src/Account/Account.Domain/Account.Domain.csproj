@@ -10,6 +10,7 @@
   </PropertyGroup>
   
     <ItemGroup>
+      <ProjectReference Include="..\..\Frameworks\Framework.Data\Framework.Data.csproj" />
       <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
     </ItemGroup>
 </Project>

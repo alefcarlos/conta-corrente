@@ -1,14 +1,12 @@
-﻿using System;
+﻿using Account.Domain.Contracts;
+using Account.Domain.Services;
+using Framework.WebAPI;
+using Framework.WebAPI.Responses;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Account.Domain.Services;
-using Microsoft.AspNetCore.Mvc;
-using Framework.Shared;
-using Framework.WebAPI;
-using Framework.WebAPI.Responses;
-using System.Threading;
-using Account.Domain.Contracts;
 
 namespace WebApi.Account.Controllers.v1
 {
@@ -22,11 +20,13 @@ namespace WebApi.Account.Controllers.v1
     {
         private readonly IBalanceService _balanceService;
         private readonly IAccountService _accountService;
+        private readonly ITransactionService _transactionService;
 
-        public AccountController(IBalanceService service, IAccountService accountService)
+        public AccountController(IBalanceService service, IAccountService accountService, ITransactionService transactionService)
         {
             _balanceService = service;
             _accountService = accountService;
+            _transactionService = transactionService;
         }
 
         /// <summary>
@@ -71,6 +71,23 @@ namespace WebApi.Account.Controllers.v1
                 return ValidationError(result.Err);
 
             return Ok(PayloadResponse<decimal>.Create(result.Balance));
+        }
+
+
+        /// <summary>
+        /// Obtém as transações de uma determinada conta corrente.
+        /// </summary>
+        /// <param name="account_id">ID da conta</param>
+        [HttpGet("{account_id}/transactions")]
+        [ProducesResponseType(typeof(PayloadResponse<List<GetTransactionsResponse>>), 200)]
+        [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
+        public async Task<IActionResult> GetTransactions(Guid account_id)
+        {
+            var transactions = await _transactionService.GetTransactionsAsync(account_id);
+
+            var result = transactions.Select(tr => new GetTransactionsResponse(tr)).ToList();
+
+            return Ok(PayloadResponse<List<GetTransactionsResponse>>.Create(result));
         }
 
         // POST v1/account/

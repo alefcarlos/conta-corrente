@@ -1,8 +1,7 @@
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 using Account.Domain.Entities;
 using Framework.Shared;
+using System;
+using System.Threading.Tasks;
 
 namespace Account.Domain.Services
 {

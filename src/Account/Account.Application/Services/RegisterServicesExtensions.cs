@@ -9,7 +9,8 @@ namespace Account.Application.Services
         {
             services.AddScoped<IBalanceService, BalanceService>();
             services.AddScoped<IAccountService, AccountService>();
-            
+            services.AddScoped<ITransactionService, TransactionService>();
+
             return services;
         }
     }

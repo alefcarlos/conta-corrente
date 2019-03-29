@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Account.Application.Data.Repositories;
+using Account.Application.Services;
+using Framework.Data.MongoDB;
+using Framework.WebAPI.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Account.Application.Services;
-using Framework.WebAPI.Hosting;
 
 namespace WebApi.Account
 {
@@ -25,6 +19,8 @@ namespace WebApi.Account
         {
             //services.AddValidators();
             services.AddServices();
+            services.AddMongoDB("mongodb://localhost:27017/demodb");
+            services.AddMongoRepositories();
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

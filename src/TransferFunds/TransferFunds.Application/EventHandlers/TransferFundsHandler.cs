@@ -30,6 +30,8 @@ namespace TransferFunds.Application.EventHandlers
             //Persistir duas transações na tabela(Crédito no destino e Débito na Origem)
             _logger.LogInformation($"Persistindos transações.");
 
+
+
             //Emitir evento de re-cálculo de saldo para ambas contas
             _logger.LogInformation($"Emitindo evento de recálculo de Saldo.");
             return true;

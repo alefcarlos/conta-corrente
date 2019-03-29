@@ -14,6 +14,7 @@ As operações disponíveis são:
 
 * Consulta de conta
 * Consulta de saldo
+* Consulta de extrato
 
 ## Framework
 

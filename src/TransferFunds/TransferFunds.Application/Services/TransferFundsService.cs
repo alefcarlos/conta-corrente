@@ -1,7 +1,6 @@
 ﻿using Framework.MessageBroker.RabbitMQ;
 using Framework.Shared;
 using System;
-using System.Threading;
 using System.Threading.Tasks;
 using TransferFunds.Domain.Events;
 using TransferFunds.Domain.Services;
