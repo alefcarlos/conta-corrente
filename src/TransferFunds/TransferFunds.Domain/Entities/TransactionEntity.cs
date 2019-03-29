@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,14 +8,20 @@ namespace TransferFunds.Domain.Entities
     /// <summary>
     /// Entidade de transação de valores entre contas
     /// </summary>
-    public class Transaction
+    public class TransactionEntity
     {
-        public Transaction(Guid from, Guid to, decimal value)
+        /// <summary>
+        /// Constante do tipo da transação
+        /// </summary>
+        public const int TRANSACTION_TYPE_TRASNFER = 0;
+
+        public TransactionEntity(Guid from, Guid to, decimal value)
         {
             Date = DateTime.Now;
             From = from;
             To = to;
             Value = value;
+            Type = TRANSACTION_TYPE_TRASNFER;
         }
 
         /// <summary>
@@ -36,5 +43,10 @@ namespace TransferFunds.Domain.Entities
         /// Valor transacionado
         /// </summary>
         public decimal Value { get; private set; }
+
+        /// <summary>
+        /// Tipo da transação
+        /// </summary>
+        public int Type { get; private set; }
     }
 }

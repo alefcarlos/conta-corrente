@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Account.Domain.Services;
 using Framework.Shared;
@@ -7,11 +8,14 @@ namespace Account.Application.Services
 {
     public class BalanceService : IBalanceService
     {
-        public  async Task<(ErrorResult err,  decimal balance)> GetAccountBallance(Guid accountId)
+        public async Task<(ErrorResult Err, decimal Balance)> GetAccountBallanceAsync(Guid accountId, CancellationToken cancellationToken)
         {
             //Validações
+            var validation = ErrorResult.Valid();
 
-            return (ErrorResult.Valid(), 0);
+            //Obter conta do repositório
+            
+            return (validation, 0);
         }
     }
 }

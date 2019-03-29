@@ -10,26 +10,24 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Account.Application.Services;
+using Framework.WebAPI.Hosting;
 
 namespace WebApi.Account
 {
-    public class Startup
+    public class Startup : BaseStartup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration) : base(configuration)
         {
-            Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public override void AfterConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddValidators();
+            services.AddServices();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -37,12 +35,13 @@ namespace WebApi.Account
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseHttpsRedirection();
             }
+        }
 
-            app.UseHttpsRedirection();
-            app.UseMvc();
+        public override void AfterConfigureApp(IApplicationBuilder app, IHostingEnvironment env)
+        {
         }
     }
 }

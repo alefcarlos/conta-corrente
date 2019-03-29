@@ -8,7 +8,12 @@ A operação de transfência entre contas é feita de modo assíncrono.
 
 ## Account
 
-    Microserviço responsável por manter contas
+    Microserviço responsável por operar contas corrent
+
+As operações disponíveis são:
+
+* Consulta de conta
+* Consulta de saldo
 
 ## Framework
 

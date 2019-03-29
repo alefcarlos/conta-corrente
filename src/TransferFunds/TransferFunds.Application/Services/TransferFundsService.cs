@@ -16,7 +16,7 @@ namespace TransferFunds.Application.Services
 
         public async Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value, CancellationToken cancellationToken)
         {
-            var validation = new ErrorResult();
+            var validation = ErrorResult.Valid();
 
             //Validar contas
             var fromExists = await _accountService.ExistsAccountByIDAsync(from, cancellationToken);
