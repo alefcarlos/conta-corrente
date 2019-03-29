@@ -44,7 +44,7 @@ namespace Framework.WebAPI.Hosting.Middlewares
             {
                 _logger.LogError(ex, "HttpExceptionMiddleware: Erro inexperado");
 
-                var result = JsonConvert.SerializeObject(new { message = "Infelizmente ocorreu um erro não tratado, entre em contato com os desenolvedores" });
+                var result = JsonConvert.SerializeObject(new { message = "Infelizmente ocorreu um erro não tratado, tente novamente" });
                 context.Response.ContentType = "application/json";
                 context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; ;
                 await context.Response.WriteAsync(result);
