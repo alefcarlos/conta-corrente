@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Framework.Shared
 {
@@ -9,7 +10,13 @@ namespace Framework.Shared
             Errors = new List<string>();
         }
 
-        public bool IsValid { get; set; }
+        public bool IsValid
+        {
+            get
+            {
+                return !Errors.Any();
+            }
+        }
 
         public IList<string> Errors { get; set; }
 
@@ -20,5 +27,7 @@ namespace Framework.Shared
 
             Errors.Add(error);
         }
+
+        public static ErrorResult Valid() => new ErrorResult();
     }
 }

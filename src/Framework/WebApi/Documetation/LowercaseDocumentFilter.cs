@@ -2,11 +2,11 @@
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 
-/// <summary>
-/// Exemplo de https://gist.github.com/rafalkasa/01d5e3b265e5aa075678e0adfd54e23f
-/// </summary>
 namespace Framework.WebAPI.Documetation
 {
+    /// <summary>
+    /// Exemplo de https://gist.github.com/rafalkasa/01d5e3b265e5aa075678e0adfd54e23f
+    /// </summary>
     public class LowercaseDocumentFilter : IDocumentFilter
     {
         public void Apply(SwaggerDocument swaggerDoc, DocumentFilterContext context)
