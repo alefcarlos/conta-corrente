@@ -1,15 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\Framework.Shared\Framework.Shared.csproj" />
-  </ItemGroup>
   
     <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
+  
+    <ItemGroup>
+      <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
+    </ItemGroup>
 </Project>

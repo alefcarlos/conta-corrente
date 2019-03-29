@@ -10,13 +10,7 @@ namespace Framework.Shared
             Errors = new List<string>();
         }
 
-        public bool IsValid
-        {
-            get
-            {
-                return !Errors.Any();
-            }
-        }
+        public bool IsValid => !Errors.Any();
 
         public IList<string> Errors { get; set; }
 

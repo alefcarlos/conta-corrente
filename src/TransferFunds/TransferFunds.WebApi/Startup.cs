@@ -1,4 +1,5 @@
-﻿using Framework.WebAPI.Hosting;
+﻿using Framework.MessageBroker.RabbitMQ;
+using Framework.WebAPI.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +19,7 @@ namespace WebApi.TransferFunds
         {
             services.AddValidators();
             services.AddServices();
+            services.AddRabbitBroker("TransferFunds.WebApi", "amqp://guest:guest@localhost");
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

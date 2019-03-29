@@ -1,8 +1,9 @@
+using Framework.MessageBroker;
 using System;
 
 namespace TransferFunds.Domain.Events
 {
-    public class TransferFundsEvent
+    public class TransferFundsEvent : BaseMessage
     {
         public TransferFundsEvent(Guid from, Guid to, decimal value)
         {

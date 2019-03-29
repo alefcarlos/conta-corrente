@@ -22,12 +22,12 @@ namespace TransferFunds.Application.Services
 
         public async Task<bool> ExistsAccountByIDAsync(Guid accountId, CancellationToken cancellationToken)
         {
-            return false;
+            return true;
         }
 
         public async Task<decimal> GetAccountBalanceByIDAsync(Guid accountId, CancellationToken cancellationToken)
         {
-            return 0;
+            return 20_000;
         }
     }
 }

@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
     <ProjectReference Include="..\TransferFunds.Domain\TransferFunds.Domain.csproj" />
   </ItemGroup>
 

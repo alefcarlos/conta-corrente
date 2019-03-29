@@ -14,7 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Framework.Shared\Framework.Shared.csproj" />
+    <ProjectReference Include="..\..\Frameworks\Framework.MessageBroker\Framework.MessageBroker.csproj" />
+    <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
   </ItemGroup>
 
 </Project>
