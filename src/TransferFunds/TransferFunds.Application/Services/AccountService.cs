@@ -20,12 +20,12 @@ namespace TransferFunds.Application.Services
             _client.BaseAddress = new System.Uri("https://localhost:5000/api/");
         }
 
-        public async Task<bool> ExistsAccountByIDAsync(Guid accountId, CancellationToken cancellationToken)
+        public async Task<bool> ExistsAccountByIDAsync(Guid accountId)
         {
             return true;
         }
 
-        public async Task<decimal> GetAccountBalanceByIDAsync(Guid accountId, CancellationToken cancellationToken)
+        public async Task<decimal> GetAccountBalanceByIDAsync(Guid accountId)
         {
             return 20_000;
         }

@@ -41,9 +41,9 @@ namespace WebApi.Account.Controllers.v1
         [HttpGet("{account_id}")]
         [ProducesResponseType(typeof(PayloadResponse<GetAccountResponse>), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
-        public async Task<IActionResult> Get(Guid account_id, CancellationToken cancellationToken)
+        public async Task<IActionResult> Get(Guid account_id)
         {
-            var result = await _accountService.GetByIdAsync(account_id, cancellationToken);
+            var result = await _accountService.GetByIdAsync(account_id);
             if (!result.Err.IsValid)
                 return ValidationError(result.Err);
 
@@ -63,9 +63,9 @@ namespace WebApi.Account.Controllers.v1
         [ProducesResponseType(typeof(PayloadResponse<decimal>), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         [HttpGet("{account_id}/balance")]
-        public async Task<IActionResult> GetBalance(Guid account_id, CancellationToken cancellationToken)
+        public async Task<IActionResult> GetBalance(Guid account_id)
         {
-            var result = await _balanceService.GetAccountBallanceAsync(account_id, cancellationToken);
+            var result = await _balanceService.GetAccountBallanceAsync(account_id);
 
             if (!result.Err.IsValid)
                 return ValidationError(result.Err);

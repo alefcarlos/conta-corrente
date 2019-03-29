@@ -8,6 +8,6 @@ namespace Account.Domain.Services
 {
     public interface IAccountService
     {
-        Task<(ErrorResult Err, AccountEntity Entity)> GetByIdAsync(Guid accountId, CancellationToken cancellationToken);
+        Task<(ErrorResult Err, AccountEntity Entity)> GetByIdAsync(Guid accountId);
     }
 }

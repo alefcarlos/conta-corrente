@@ -7,6 +7,6 @@ namespace Account.Domain.Services
 {
     public interface IBalanceService
     {
-        Task<(ErrorResult Err, decimal Balance)> GetAccountBallanceAsync(Guid accountId, CancellationToken cancellationToken);
+        Task<(ErrorResult Err, decimal Balance)> GetAccountBallanceAsync(Guid accountId);
     }
 }

@@ -19,12 +19,12 @@ namespace TransferFunds.Application.Services
             _publisher = publisher;
         }
 
-        public async Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value, CancellationToken cancellationToken)
+        public async Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value)
         {
             var validation = ErrorResult.Valid();
 
             //Validar contas
-            var fromExists = await _accountService.ExistsAccountByIDAsync(from, cancellationToken);
+            var fromExists = await _accountService.ExistsAccountByIDAsync(from);
 
             if (!fromExists)
             {
@@ -32,7 +32,7 @@ namespace TransferFunds.Application.Services
                 return validation;
             }
 
-            var toExists = await _accountService.ExistsAccountByIDAsync(from, cancellationToken);
+            var toExists = await _accountService.ExistsAccountByIDAsync(from);
 
             if (!toExists)
             {
@@ -41,7 +41,7 @@ namespace TransferFunds.Application.Services
             }
 
             //Validar saldo da conta de destino
-            var fromBalance = await _accountService.GetAccountBalanceByIDAsync(from, cancellationToken);
+            var fromBalance = await _accountService.GetAccountBalanceByIDAsync(from);
             if (fromBalance < value)
             {
                 validation.Add("O saldo da conta de origem não é o suficiente pra realizar a transferência");

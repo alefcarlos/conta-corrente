@@ -7,6 +7,6 @@ namespace TransferFunds.Domain.Services
 {
     public interface ITransferFundsService
     {
-        Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value, CancellationToken cancellationToken);
+        Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value);
     }
 }

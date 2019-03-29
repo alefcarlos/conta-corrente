@@ -9,7 +9,7 @@ namespace Account.Application.Services
 {
     public class AccountService : IAccountService
     {
-        public async Task<(ErrorResult Err, AccountEntity Entity)> GetByIdAsync(Guid accountId, CancellationToken cancellationToken)
+        public async Task<(ErrorResult Err, AccountEntity Entity)> GetByIdAsync(Guid accountId)
         {
             var validation = ErrorResult.Valid();
 
