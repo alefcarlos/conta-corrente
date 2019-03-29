@@ -1,8 +1,8 @@
-﻿using Framework.MessageBroker.RabbitMQ;
+﻿using Account.PublicShared.Events;
+using Framework.MessageBroker.RabbitMQ;
 using Framework.Shared;
 using System;
 using System.Threading.Tasks;
-using TransferFunds.Domain.Events;
 using TransferFunds.Domain.Services;
 
 namespace TransferFunds.Application.Services
@@ -48,7 +48,8 @@ namespace TransferFunds.Application.Services
             }
 
             //Enviar evento de transferência entre contas
-            await _publisher.PublishAsync(new TransferFundsEvent(from, to, value));
+            await _publisher.PublishAsync(new TransactionEvent(from, -value, Account.PublicShared.Enums.ETransactionType.Transfer));
+            await _publisher.PublishAsync(new TransactionEvent(to, value, Account.PublicShared.Enums.ETransactionType.Transfer));
 
             return validation;
         }

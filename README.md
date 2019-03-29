@@ -16,6 +16,8 @@ As operações disponíveis são:
 * Consulta de saldo
 * Consulta de extrato
 
+> O software `Account.PublicShared` seria um pacote Nuget que pode ser adicionado por quem gostaria de emitir algum evento de crédito
+
 ## Framework
 
     Conjunto de boillerplates contendo padrões de projetos.

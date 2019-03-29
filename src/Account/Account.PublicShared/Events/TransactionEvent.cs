@@ -1,26 +1,13 @@
 ﻿using Account.PublicShared.Enums;
-using Account.PublicShared.Events;
-using Framework.Data.MongoDB;
+using Framework.MessageBroker;
 using System;
 
-namespace Account.Domain.Entities
+namespace Account.PublicShared.Events
 {
-    /// <summary>
-    /// Entidade de transação de valores entre contas
-    /// </summary>
-    public class TransactionEntity : MongoEntityBase
+    public class TransactionEvent : BaseMessage
     {
-        public TransactionEntity(TransactionEvent message)
+        public TransactionEvent(Guid accountId, decimal value, ETransactionType type)
         {
-            AccountId = message.AccountId;
-            Date = message.Date;
-            Value = message.Value;
-            Type = message.Type;
-        }
-
-        public TransactionEntity(Guid accountId, decimal value, ETransactionType type)
-        {
-            AccountId = accountId;
             Date = DateTime.Now;
             Value = value;
             Type = type;
