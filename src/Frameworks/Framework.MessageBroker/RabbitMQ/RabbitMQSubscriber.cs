@@ -60,14 +60,21 @@ namespace Framework.MessageBroker.RabbitMQ
 
                 _logger.LogInformation($"New message, id {message.MessageId}");
 
-                var result = factory(message);
+                try
+                {
+                    var result = factory(message);
 
-
-                if (result)
-                    _channel.BasicAck(ea.DeliveryTag, false); //Devemos indicar que a mensagem foi processado com sucesso.
-                else
+                    if (result)
+                        _channel.BasicAck(ea.DeliveryTag, false); //Devemos indicar que a mensagem foi processado com sucesso.
+                    else
+                        //Devemos enviar a mensagem para a fila novamente, assim pode ser processado por outra instância desse consumer
+                        _channel.BasicReject(ea.DeliveryTag, true);
+                }
+                catch
+                {
                     //Devemos enviar a mensagem para a fila novamente, assim pode ser processado por outra instância desse consumer
                     _channel.BasicReject(ea.DeliveryTag, true);
+                }
             };
 
             _channel.BasicConsume(queue: options.QueueName,

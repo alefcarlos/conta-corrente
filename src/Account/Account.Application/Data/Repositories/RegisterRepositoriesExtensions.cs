@@ -8,6 +8,7 @@ namespace Account.Application.Data.Repositories
         public static IServiceCollection AddMongoRepositories(this IServiceCollection services)
         {
             services.AddSingleton<ITransactionRepository, TransactionRepository>();
+            services.AddSingleton<IAccountRepository, AccountRepository>();
 
             return services;
         }

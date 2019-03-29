@@ -1,5 +1,6 @@
 ﻿using Account.Application.Data.Repositories;
 using Account.Application.Services;
+using Account.Domain.Validations;
 using Framework.Data.MongoDB;
 using Framework.WebAPI.Hosting;
 using Microsoft.AspNetCore.Builder;
@@ -17,7 +18,7 @@ namespace WebApi.Account
 
         public override void AfterConfigureServices(IServiceCollection services)
         {
-            //services.AddValidators();
+            services.AddValidators();
             services.AddServices();
             services.AddMongoDB("mongodb://localhost:27017/demodb");
             services.AddMongoRepositories();

@@ -8,6 +8,7 @@ namespace Account.PublicShared.Events
     {
         public TransactionEvent(Guid accountId, decimal value, ETransactionType type)
         {
+            AccountId = accountId;
             Date = DateTime.Now;
             Value = value;
             Type = type;

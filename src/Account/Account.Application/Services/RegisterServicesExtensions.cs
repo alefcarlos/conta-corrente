@@ -7,7 +7,6 @@ namespace Account.Application.Services
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IBalanceService, BalanceService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ITransactionService, TransactionService>();
 

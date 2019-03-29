@@ -31,13 +31,11 @@ namespace Account.Application.EventHandlers
 
         private bool ConsumeEvent(TransactionEvent message)
         {
-            //Realizar double check se a conta não existe
+            //Realizar double check se a conta existe
+
 
             _logger.LogInformation($"Persistir transação.");
             _repository.Create(new TransactionEntity(message));
-
-            _logger.LogInformation($"Emitindo evento de recálculo de Saldo.");
-
             return true;
         }
 

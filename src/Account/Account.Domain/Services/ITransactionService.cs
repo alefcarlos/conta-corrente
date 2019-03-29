@@ -8,5 +8,6 @@ namespace Account.Domain.Services
     public interface ITransactionService
     {
         Task<List<TransactionEntity>> GetTransactionsAsync(Guid account_id);
+        Task<decimal> GetBalanceAsync(Guid account_id);
     }
 }

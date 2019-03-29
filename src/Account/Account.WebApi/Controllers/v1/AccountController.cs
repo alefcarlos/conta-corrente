@@ -1,4 +1,5 @@
 ﻿using Account.Domain.Contracts;
+using Account.Domain.Entities;
 using Account.Domain.Services;
 using Framework.WebAPI;
 using Framework.WebAPI.Responses;
@@ -18,13 +19,11 @@ namespace WebApi.Account.Controllers.v1
     [Route("v{version:apiVersion}/[controller]")]
     public class AccountController : BaseController
     {
-        private readonly IBalanceService _balanceService;
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
 
-        public AccountController(IBalanceService service, IAccountService accountService, ITransactionService transactionService)
+        public AccountController(IAccountService accountService, ITransactionService transactionService)
         {
-            _balanceService = service;
             _accountService = accountService;
             _transactionService = transactionService;
         }
@@ -36,19 +35,19 @@ namespace WebApi.Account.Controllers.v1
         /// Exemplo:
         /// 
         ///     GET v1/account/30039ca2-675b-4a12-bd2d-a4daf1be4ecb
+        ///     GET v1/account/41469262894
         /// </remarks>
-        /// <param name="account_id">ID da conta</param>
-        [HttpGet("{account_id}")]
+        /// <param name="identifier">Identificação da conta, CPF ou ID</param>
+        [HttpGet("{identifier}")]
         [ProducesResponseType(typeof(PayloadResponse<GetAccountResponse>), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
-        public async Task<IActionResult> Get(Guid account_id)
+        public async Task<IActionResult> Get(string identifier)
         {
-            var result = await _accountService.GetByIdAsync(account_id);
-            if (!result.Err.IsValid)
-                return ValidationError(result.Err);
+            var (Err, Entity) = await _accountService.GetByIdentifierAsync(identifier);
+            if (!Err.IsValid)
+                return ValidationError(Err);
 
-
-            return Ok(PayloadResponse<GetAccountResponse>.Create(new GetAccountResponse(result.Entity)));
+            return Ok(PayloadResponse<GetAccountResponse>.Create(new GetAccountResponse(Entity)));
         }
 
         /// <summary>
@@ -65,12 +64,9 @@ namespace WebApi.Account.Controllers.v1
         [HttpGet("{account_id}/balance")]
         public async Task<IActionResult> GetBalance(Guid account_id)
         {
-            var result = await _balanceService.GetAccountBallanceAsync(account_id);
+            var result = await _transactionService.GetBalanceAsync(account_id);
 
-            if (!result.Err.IsValid)
-                return ValidationError(result.Err);
-
-            return Ok(PayloadResponse<decimal>.Create(result.Balance));
+            return Ok(PayloadResponse<decimal>.Create(result));
         }
 
 
@@ -90,11 +86,18 @@ namespace WebApi.Account.Controllers.v1
             return Ok(PayloadResponse<List<GetTransactionsResponse>>.Create(result));
         }
 
-        // POST v1/account/
+        /// <summary>
+        /// Cria uma nova conta corrente
+        /// </summary>
+        /// <param name="request">Dados da conta</param>
+        [ProducesResponseType(typeof(PayloadResponse), 200)]
+        [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         [HttpPost]
-        public IActionResult Post([FromBody] string value)
+        public async Task<IActionResult> Post([FromBody] PostAccountRequest request)
         {
-            return Ok();
+            await _accountService.CreateAsync(new AccountEntity(request));
+
+            return Ok(PayloadResponse.Create());
         }
     }
 }
