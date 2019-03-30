@@ -1,0 +1,441 @@
+{
+	"info": {
+		"_postman_id": "1eb50e43-9a41-46d0-bc0c-2bf1364ba969",
+		"name": "ContaCorrente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Criar Conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94f47834-d90f-4f12-9a40-3cff3fb3a1fe",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var result = pm.response.json();",
+							"pm.globals.set(\"primeira_conta\", result.data);",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Alef\",\n\t\"CPF\": \"41469262894\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Criar Segunda Conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a63048a-5116-4f3c-8c16-38885488d5b0",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"var result = pm.response.json();",
+							"pm.globals.set(\"segunda_conta\", result.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Zézinho\",\n\t\"CPF\": \"10805064036\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar crédito na primeira conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e231f8a7-b86b-40e0-a9fd-1401ca44c90b",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"function sleep(milisecond) {",
+							"  const date = Date.now();",
+							"",
+							"  // Sleep in an *infinite* loop",
+							"  while ((date + milisecond) > Date.now());",
+							"}",
+							"",
+							"sleep(3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Value\": 1000,\n\t\"Type\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar saldo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "123c2046-ac04-430a-9439-d8a086714083",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Balance should be R$ 1000\", function(){",
+							"    var result = pm.response.json();",
+							"    pm.expect(result.data).to.eql(1000);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Transferência entre contas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0d4940cb-7a25-4368-92b5-ea948e543455",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"function sleep(milisecond) {",
+							"  const date = Date.now();",
+							"",
+							"  // Sleep in an *infinite* loop",
+							"  while ((date + milisecond) > Date.now());",
+							"}",
+							"",
+							"sleep(3000);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\": \"{{primeira_conta}}\",\n\t\"to\": \"{{segunda_conta}}\",\n\t\"value\": 233.33\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8182/v1/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8182",
+					"path": [
+						"v1",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar saldo da primeira conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "123c2046-ac04-430a-9439-d8a086714083",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Balance after transfer should be R$ 766.67\", function(){",
+							"    var result = pm.response.json();",
+							"    pm.expect(result.data).to.eql(766.67);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validar saldo da segunda conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "123c2046-ac04-430a-9439-d8a086714083",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Balance after transfer should be R$ 233,33\", function(){",
+							"    var result = pm.response.json();",
+							"    pm.expect(result.data).to.eql(233.33);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{segunda_conta}}/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{segunda_conta}}",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar transações da primeira conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6890d9cb-5b32-42ba-a93a-8bf7962c7325",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Transaction count should be 2\", function () {",
+							"    var result = pm.response.json();",
+							"    pm.expect(result.data.length).to.eql(2);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar transações da segunda conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c8522417-e9a7-4850-908f-ec3a60d9dbd3",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Transaction count should be 1\", function () {",
+							"    var result = pm.response.json();",
+							"    pm.expect(result.data.length).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{segunda_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{segunda_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

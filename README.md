@@ -43,4 +43,18 @@ docker-compose up --build
 * Account.Consumer.TransactionHandler
 * TransferFunds.WebApi
 
-O arquivo `postman-collection` contém as requests de testes.
+## Testes integrados
+
+Utilizamos o `newman` pra executar testes.
+
+```bash
+npm install -g newman
+```
+
+E após ter subido todas as aplicações basta executar
+
+```bash
+newman run integrated_tests_collection.json
+```
+
+![Result](integrated_tests_result.png)
