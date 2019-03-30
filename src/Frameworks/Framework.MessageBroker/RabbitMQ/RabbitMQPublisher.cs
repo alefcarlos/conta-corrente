@@ -38,6 +38,7 @@ namespace Framework.MessageBroker.RabbitMQ
 
         private void ProxyPublish<T>(T model, string queueName = "") where T : BaseMessage
         {
+            model.MessageId = Guid.NewGuid();
             var json = JsonConvert.SerializeObject(model);
             var encoded = Encoding.UTF8.GetBytes(json);
 
@@ -48,7 +49,6 @@ namespace Framework.MessageBroker.RabbitMQ
                 if (!string.IsNullOrWhiteSpace(queueName))
                     options.QueueName = queueName;
 
-                model.MessageId = Guid.NewGuid();
 
                 BasicPublish(channel, options, encoded);
             }

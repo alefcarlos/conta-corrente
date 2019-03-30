@@ -1,5 +1,5 @@
-﻿using Account.Domain.Entities;
-using Account.PublicShared.Contracts;
+﻿using Account.Domain.Contracts;
+using Account.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

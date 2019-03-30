@@ -1,5 +1,6 @@
 ﻿using System;
 using Account.Domain.Entities;
+using Account.PublicShared.Enums;
 
 namespace Account.Domain.Contracts
 {
@@ -9,6 +10,7 @@ namespace Account.Domain.Contracts
         {
             Date = entity.Date;
             Value = entity.Value;
+            Type = entity.Type;
 
         }
 
@@ -25,6 +27,6 @@ namespace Account.Domain.Contracts
         /// <summary>
         /// Tipo da transação
         /// </summary>
-        public int Type { get; private set; }
+        public ETransactionType Type { get; private set; }
     }
 }

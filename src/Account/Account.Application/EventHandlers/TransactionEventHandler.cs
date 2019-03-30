@@ -36,6 +36,7 @@ namespace Account.Application.EventHandlers
 
             _logger.LogInformation($"Persistir transação.");
             _repository.Create(new TransactionEntity(message));
+            _logger.LogInformation($"Processado com sucesso!");
             return true;
         }
 

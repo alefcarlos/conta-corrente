@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "1eb50e43-9a41-46d0-bc0c-2bf1364ba969",
+		"name": "ContaCorrente",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1-Criar Conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "94f47834-d90f-4f12-9a40-3cff3fb3a1fe",
+						"exec": [
+							"var result = pm.response.json();",
+							"",
+							"pm.globals.set(\"primeira_conta\", result.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Alef\",\n\t\"CPF\": \"41469262894\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2-Criar Segunda Conta",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8a63048a-5116-4f3c-8c16-38885488d5b0",
+						"exec": [
+							"var result = pm.response.json();",
+							"",
+							"pm.globals.set(\"segunda_conta\", result.data);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"Zézinho\",\n\t\"CPF\": \"10805064036\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4-Transferência entre contas",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"from\": \"{{primeira_conta}}\",\n\t\"to\": \"{{segunda_conta}}\",\n\t\"value\": 233.33\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8182/v1/transfer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8182",
+					"path": [
+						"v1",
+						"transfer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3- Adicionar crédito na primeira conta",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Value\": 1000,\n\t\"Type\": 1\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5-Obter transações",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/{{primeira_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"{{primeira_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6-Obter saldo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7-Obter saldo segunda conta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{segunda_conta}}/balance",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{segunda_conta}}",
+						"balance"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8-Listar transações da primeira conta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{primeira_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "9-Listar transações da segunda conta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8181/v1/account/{{segunda_conta}}/transactions",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8181",
+					"path": [
+						"v1",
+						"account",
+						"{{segunda_conta}}",
+						"transactions"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

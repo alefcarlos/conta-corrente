@@ -10,6 +10,7 @@ namespace Account.Domain.Validations
         {
             // can then manually register validators
             services.AddTransient<IValidator<PostAccountRequest>, PostAccountRequestValidator>();
+            services.AddTransient<IValidator<PostTransactionRequest>, PostTransactionRequestValidator>();
 
             return services;
         }

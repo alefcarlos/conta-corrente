@@ -1,7 +1,6 @@
 ﻿using Account.PublicShared.Enums;
-using System;
 
-namespace Account.PublicShared.Contracts
+namespace Account.Domain.Contracts
 {
     /// <summary>
     /// Request de transação
@@ -11,11 +10,11 @@ namespace Account.PublicShared.Contracts
         /// <summary>
         /// Valor transacionado
         /// </summary>
-        public decimal Value { get; private set; }
+        public decimal Value { get; set; }
 
         /// <summary>
         /// Tipo da transação
         /// </summary>
-        public ETransactionType Type { get; private set; }
+        public ETransactionType Type { get; set; }
     }
 }

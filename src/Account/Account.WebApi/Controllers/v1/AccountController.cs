@@ -1,7 +1,6 @@
 ﻿using Account.Domain.Contracts;
 using Account.Domain.Entities;
 using Account.Domain.Services;
-using Account.PublicShared.Contracts;
 using Framework.WebAPI;
 using Framework.WebAPI.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -63,7 +62,7 @@ namespace WebApi.Account.Controllers.v1
         [ProducesResponseType(typeof(PayloadResponse<decimal>), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         [HttpGet("{account_id}/balance")]
-        public async Task<IActionResult> GetBalance(Guid account_id)
+        public async Task<IActionResult> GetBalance([FromRoute]Guid account_id)
         {
             var result = await _transactionService.GetBalanceAsync(account_id);
 
@@ -78,7 +77,7 @@ namespace WebApi.Account.Controllers.v1
         [HttpGet("{account_id}/transactions")]
         [ProducesResponseType(typeof(PayloadResponse<List<GetTransactionsResponse>>), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
-        public async Task<IActionResult> GetTransactions(Guid account_id)
+        public async Task<IActionResult> GetTransactions([FromRoute]Guid account_id)
         {
             var transactions = await _transactionService.GetTransactionsAsync(account_id);
 
@@ -92,9 +91,9 @@ namespace WebApi.Account.Controllers.v1
         /// </summary>
         /// <param name="request">Dados da transação</param>
         /// <param name="account_id">ID da conta</param>
-        [HttpPost("{account_id}/transaction")]
+        [HttpPost("{account_id}/transactions")]
         [ProducesResponseType(typeof(PayloadResponse), 200)]
-        public async Task<IActionResult> PosTransaction(Guid account_id, [FromBody]PostTransactionRequest request)
+        public async Task<IActionResult> PosTransaction([FromRoute]Guid account_id, [FromBody] PostTransactionRequest request)
         {
             await _transactionService.PostTransactionAsync(account_id, request);
 

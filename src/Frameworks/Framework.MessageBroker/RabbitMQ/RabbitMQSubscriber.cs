@@ -70,8 +70,9 @@ namespace Framework.MessageBroker.RabbitMQ
                         //Devemos enviar a mensagem para a fila novamente, assim pode ser processado por outra instância desse consumer
                         _channel.BasicReject(ea.DeliveryTag, true);
                 }
-                catch
+                catch (Exception ex)
                 {
+                    _logger.LogError(ex, "Erro ao tentar processar mensagem");
                     //Devemos enviar a mensagem para a fila novamente, assim pode ser processado por outra instância desse consumer
                     _channel.BasicReject(ea.DeliveryTag, true);
                 }

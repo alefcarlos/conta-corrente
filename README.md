@@ -42,3 +42,5 @@ docker-compose up --build
 * Account.WebApi
 * Account.Consumer.TransactionHandler
 * TransferFunds.WebApi
+
+O arquivo `postman-collection` contém as requests de testes.
