@@ -14,13 +14,11 @@ namespace Framework.MessageBroker.RabbitMQ
             //Adicionar como transiente para garantir que NUNCA compartilharemos as intâncias dos channels por thread
             services.AddTransient<IRabbitMQSubscriber, RabbitMQSubscriber>();
 
-            //if (addHealthCheck)
-            //{
-            //    var uri = CommonHelpers.GetValueFromEnv<string>("RABBITMQ_URI");
-
-            //    services.AddHealthChecks()
-            //        .AddRabbitMQ(uri, "rabbitmq", tags: new string[] { "messagebroker", "rabbitmq" });
-            //}
+            if (addHealthCheck)
+            {
+                services.AddHealthChecks()
+                    .AddRabbitMQ(uri, name: "rabbitmq", tags: new string[] { "messagebroker", "rabbitmq" });
+            }
 
             return services;
         }

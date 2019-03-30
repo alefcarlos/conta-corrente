@@ -15,7 +15,7 @@ namespace Account.Consumer.TransactionHandler
             services.AddHostedService<TransactionEventHandler>();
 
             var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
-            services.AddRabbitBroker("Account.Consumer.TransactionHandler", rabbitUri);
+            services.AddRabbitBroker("Account.Consumer.TransactionHandler", rabbitUri, false);
 
             var mongoUri = Environment.GetEnvironmentVariable("MONGO_URI");
             services.AddMongoDB(mongoUri);
