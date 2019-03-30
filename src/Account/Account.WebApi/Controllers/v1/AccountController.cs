@@ -1,6 +1,7 @@
 ﻿using Account.Domain.Contracts;
 using Account.Domain.Entities;
 using Account.Domain.Services;
+using Account.PublicShared.Contracts;
 using Framework.WebAPI;
 using Framework.WebAPI.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -84,6 +85,20 @@ namespace WebApi.Account.Controllers.v1
             var result = transactions.Select(tr => new GetTransactionsResponse(tr)).ToList();
 
             return Ok(PayloadResponse<List<GetTransactionsResponse>>.Create(result));
+        }
+
+        /// <summary>
+        /// Gera uma nova transação para uma determinada conta
+        /// </summary>
+        /// <param name="request">Dados da transação</param>
+        /// <param name="account_id">ID da conta</param>
+        [HttpPost("{account_id}/transaction")]
+        [ProducesResponseType(typeof(PayloadResponse), 200)]
+        public async Task<IActionResult> PosTransaction(Guid account_id, [FromBody]PostTransactionRequest request)
+        {
+            await _transactionService.PostTransactionAsync(account_id, request);
+
+            return Ok(PayloadResponse.Create());
         }
 
         /// <summary>

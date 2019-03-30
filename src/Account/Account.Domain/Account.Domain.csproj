@@ -3,19 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
-  
-    <PropertyGroup>
+
+  <PropertyGroup>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
-  
-    <ItemGroup>
-      <PackageReference Include="FluentValidation" Version="8.2.0" />
-    </ItemGroup>
-  
-    <ItemGroup>
-      <ProjectReference Include="..\..\Frameworks\Framework.Data\Framework.Data.csproj" />
-      <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
-      <ProjectReference Include="..\Account.PublicShared\Account.PublicShared.csproj" />
-    </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Frameworks\Framework.Data\Framework.Data.csproj" />
+    <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
+    <ProjectReference Include="..\Account.PublicShared\Account.PublicShared.csproj" />
+  </ItemGroup>
 </Project>

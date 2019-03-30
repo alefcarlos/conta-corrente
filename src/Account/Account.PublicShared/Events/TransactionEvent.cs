@@ -1,9 +1,12 @@
-﻿using Account.PublicShared.Enums;
+﻿using Account.PublicShared.Contracts;
+using Account.PublicShared.Enums;
 using Framework.MessageBroker;
+using Framework.MessageBroker.RabbitMQ;
 using System;
 
 namespace Account.PublicShared.Events
 {
+    [RabbitMQProperties(Durable = true)]
     public class TransactionEvent : BaseMessage
     {
         public TransactionEvent(Guid accountId, decimal value, ETransactionType type)
@@ -12,6 +15,14 @@ namespace Account.PublicShared.Events
             Date = DateTime.Now;
             Value = value;
             Type = type;
+        }
+
+        public TransactionEvent(Guid accountId, PostTransactionRequest request)
+        {
+            AccountId = accountId;
+            Date = DateTime.Now;
+            Value = request.Value;
+            Type = request.Type;
         }
 
         public Guid AccountId { get; private set; }

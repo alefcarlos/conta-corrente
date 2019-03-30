@@ -2,6 +2,7 @@
 using Account.Application.Services;
 using Account.Domain.Validations;
 using Framework.Data.MongoDB;
+using Framework.MessageBroker.RabbitMQ;
 using Framework.WebAPI.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -22,6 +23,9 @@ namespace WebApi.Account
             services.AddValidators();
             services.AddServices();
 
+            var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
+            services.AddRabbitBroker("Account.WebApi", rabbitUri);
+            
             var mongoUri = Environment.GetEnvironmentVariable("MONGO_URI");
             services.AddMongoDB(mongoUri);
             services.AddMongoRepositories();

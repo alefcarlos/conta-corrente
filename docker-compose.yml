@@ -40,6 +40,7 @@ services:
     restart: always
     environment:
       - RABBITMQ_URI=amqp://guest:guest@rabbitmq
+      - ACCOUNT_URI=http://account-webapi/
     ports:
       - "8182:80"
     links:

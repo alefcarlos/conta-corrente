@@ -4,7 +4,9 @@
 
     Microserviço responsável por fazer transações entre contas.
 
-A operação de transfência entre contas é feita de modo assíncrono.
+A operação de transfência entre contas é feita de modo assíncrona.
+
+As consultas feitas no serviço Account contém resiliência, se uma determinada chamada ocorrer erro, será feita mais 3 tentativas.
 
 ## Account
 
