@@ -17,6 +17,21 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+  account-transaction-consumer:
+    build:
+      context: .
+      dockerfile: Account.Consumer.TransactionHandler.Dockerfile
+    container_name: account-transaction-consumer
+    restart: always
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/contacorrente
+      - RABBITMQ_URI=amqp://guest:guest@rabbitmq
+    links:
+      - mongodb
+      - rabbitmq
+    depends_on:
+      - mongodb
+      - rabbitmq
   transferfunds-webapi:
     build:
       context: .
@@ -24,15 +39,12 @@ services:
     container_name: transferfunds-webapi
     restart: always
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/contacorrente
       - RABBITMQ_URI=amqp://guest:guest@rabbitmq
     ports:
       - "8182:80"
     links:
-      - mongodb
       - rabbitmq
     depends_on:
-      - mongodb
       - rabbitmq
       - account-webapi
   mongodb:

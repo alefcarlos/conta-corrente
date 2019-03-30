@@ -22,7 +22,7 @@ namespace WebApi.Account
             services.AddValidators();
             services.AddServices();
 
-            var mongoUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
+            var mongoUri = Environment.GetEnvironmentVariable("MONGO_URI");
             services.AddMongoDB(mongoUri);
             services.AddMongoRepositories();
         }

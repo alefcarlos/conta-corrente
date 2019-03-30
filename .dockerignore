@@ -1,0 +1,2 @@
+## Garantir que as configurações locais não sobrescrevam o deploy
+.env
