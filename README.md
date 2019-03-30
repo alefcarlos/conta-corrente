@@ -24,6 +24,10 @@ As operações disponíveis são:
 
     Conjunto de boillerplates contendo padrões de projetos.
 
+## Health Check
+
+Toda webapi tem uma rota `/healthz` que validar se todos os serviços estão operantes.
+
 ## Como executar ?
 
 O setup do projeto pode ser feito utilizando `docker-compose` que irá suprir as seguintes dependências:
