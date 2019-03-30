@@ -37,9 +37,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.PublicShared", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Consumer.TransactionHandler", "src\Account\Account.Consumer.TransactionHandler\Account.Consumer.TransactionHandler.csproj", "{EA7D4E15-3CD7-4E13-9E02-AA5F5C1A3A85}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransferFunds.Domain.Tests", "src\TransferFunds\TransferFunds.Domain.Tests\TransferFunds.Domain.Tests.csproj", "{9E407E64-C4E0-4847-91A3-1D3CDAEA0442}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransferFunds.Domain.Tests", "src\TransferFunds\TransferFunds.Domain.Tests\TransferFunds.Domain.Tests.csproj", "{9E407E64-C4E0-4847-91A3-1D3CDAEA0442}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Domain.Tests", "Account.Domain.Tests\Account.Domain.Tests.csproj", "{EA89D9AF-C05B-4664-A8E3-BDE97792C9B2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Domain.Tests", "src\Account\Account.Domain.Tests\Account.Domain.Tests.csproj", "{EA89D9AF-C05B-4664-A8E3-BDE97792C9B2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9CB2F6ED-A0BE-45B9-9F09-2EC8EACF9CA5}"
+	ProjectSection(SolutionItems) = preProject
+		Account.Consumer.TransactionHandler.Dockerfile = Account.Consumer.TransactionHandler.Dockerfile
+		Account.WebApi.Dockerfile = Account.WebApi.Dockerfile
+		docker-compose.yml = docker-compose.yml
+		TransferFunds.WebApi.Dockerfile = TransferFunds.WebApi.Dockerfile
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

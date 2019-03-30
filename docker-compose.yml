@@ -1,0 +1,51 @@
+version: '3.7'
+services:
+  account-webapi:
+    build:
+      context: .
+      dockerfile: Account.WebApi.Dockerfile
+    container_name: account-webapi
+    restart: always
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/contacorrente
+      - RABBITMQ_URI=amqp://guest:guest@rabbitmq
+    ports:
+      - "8181:80"
+    links:
+      - mongodb
+      - rabbitmq
+    depends_on:
+      - mongodb
+      - rabbitmq
+  transferfunds-webapi:
+    build:
+      context: .
+      dockerfile: TransferFunds.WebApi.Dockerfile
+    container_name: transferfunds-webapi
+    restart: always
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017/contacorrente
+      - RABBITMQ_URI=amqp://guest:guest@rabbitmq
+    ports:
+      - "8182:80"
+    links:
+      - mongodb
+      - rabbitmq
+    depends_on:
+      - mongodb
+      - rabbitmq
+      - account-webapi
+  mongodb:
+    image: mongo
+    container_name: "mongodb"
+    ports:
+      - "27017:27017"
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: 'rabbitmq'
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
