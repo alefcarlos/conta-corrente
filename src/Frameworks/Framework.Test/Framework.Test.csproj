@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Bogus" Version="25.0.4" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+      <PackageReference Include="dotenv.net" Version="1.0.4" />
+      <PackageReference Include="Microsoft.Extensions.Logging" Version="2.2.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.2.0" />
+      <PackageReference Include="RichardSzalay.MockHttp" Version="5.0.0" />
+      <PackageReference Include="Shouldly" Version="3.0.2" />
+    </ItemGroup>
+</Project>

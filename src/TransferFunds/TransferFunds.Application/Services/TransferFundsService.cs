@@ -23,17 +23,21 @@ namespace TransferFunds.Application.Services
             var validation = ErrorResult.Valid();
 
             //Validar contas
-            var fromExists = await _accountService.ExistsAccountByIDAsync(from);
-
-            if (!fromExists)
+            try
+            {
+                await _accountService.GetAccountByIDAsync(from);
+            }
+            catch (System.Net.Http.HttpRequestException)
             {
                 validation.Add("A conta de origem não existe!");
                 return validation;
             }
 
-            var toExists = await _accountService.ExistsAccountByIDAsync(from);
-
-            if (!toExists)
+            try
+            {
+                await _accountService.GetAccountByIDAsync(to);
+            }
+            catch (System.Net.Http.HttpRequestException)
             {
                 validation.Add("A conta de destino não existe!");
                 return validation;

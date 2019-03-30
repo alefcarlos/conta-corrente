@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net.Http;
-using System.Threading;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using TransferFunds.Application.Settings;
+using TransferFunds.Application.ViewModels;
 
 namespace TransferFunds.Application.Services
 {
@@ -13,21 +15,41 @@ namespace TransferFunds.Application.Services
     {
         private readonly HttpClient _client;
 
-        public AccountService(HttpClient client)
+        public AccountService(HttpClient client, AccountSettings settings)
         {
             _client = client;
             _client.DefaultRequestHeaders.Accept.Clear();
-            _client.BaseAddress = new System.Uri("https://localhost:5000/api/");
+            _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _client.BaseAddress = new System.Uri(settings.URI);
         }
 
-        public async Task<bool> ExistsAccountByIDAsync(Guid accountId)
+        public async Task<GetAccountResponse> GetAccountByIDAsync(Guid accountId)
         {
-            return true;
+            var response = await _client.GetAsync($"/v1/account/{accountId.ToString()}");
+            response.EnsureSuccessStatusCode();
+
+            var account = await response.Content.ReadAsAsync<ApiPayload<GetAccountResponse>>();
+            return account.Data;
+        }
+
+        public async Task<Guid> CreateAccountAsync(PostAccountRequest req)
+        {
+            var response = await _client.PostAsJsonAsync($"/v1/account", req);
+            response.EnsureSuccessStatusCode();
+
+            var accountId = await response.Content.ReadAsAsync<ApiPayload<Guid>>();
+
+            return accountId.Data;
         }
 
         public async Task<decimal> GetAccountBalanceByIDAsync(Guid accountId)
         {
-            return 20_000;
+            var response = await _client.GetAsync($"/v1/account/{accountId.ToString()}/balance");
+            response.EnsureSuccessStatusCode();
+
+            var ballance = await response.Content.ReadAsAsync<ApiPayload<decimal>>();
+
+            return ballance.Data;
         }
     }
 }

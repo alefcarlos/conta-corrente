@@ -90,14 +90,15 @@ namespace WebApi.Account.Controllers.v1
         /// Cria uma nova conta corrente
         /// </summary>
         /// <param name="request">Dados da conta</param>
-        [ProducesResponseType(typeof(PayloadResponse), 200)]
+        [ProducesResponseType(typeof(PayloadResponse<Guid>), 200)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PostAccountRequest request)
         {
-            await _accountService.CreateAsync(new AccountEntity(request));
+            var entity = new AccountEntity(request);
+            await _accountService.CreateAsync(entity);
 
-            return Ok(PayloadResponse.Create());
+            return Ok(PayloadResponse<Guid>.Create(entity.AccountId));
         }
     }
 }
