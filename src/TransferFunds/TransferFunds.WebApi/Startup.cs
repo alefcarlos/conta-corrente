@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using TransferFunds.Application.Services;
 using TransferFunds.Domain.Validations;
 
@@ -19,7 +20,9 @@ namespace WebApi.TransferFunds
         {
             services.AddValidators();
             services.AddServices();
-            services.AddRabbitBroker("TransferFunds.WebApi", "amqp://guest:guest@localhost");
+
+            var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
+            services.AddRabbitBroker("TransferFunds.WebApi", rabbitUri);
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

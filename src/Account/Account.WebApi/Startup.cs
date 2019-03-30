@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace WebApi.Account
 {
@@ -20,7 +21,9 @@ namespace WebApi.Account
         {
             services.AddValidators();
             services.AddServices();
-            services.AddMongoDB("mongodb://localhost:27017/demodb");
+
+            var mongoUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
+            services.AddMongoDB(mongoUri);
             services.AddMongoRepositories();
         }
 

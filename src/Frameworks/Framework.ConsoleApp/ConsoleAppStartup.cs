@@ -1,6 +1,8 @@
+using dotenv.net;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.IO;
 
 namespace Framework.ConsoleApp
 {
@@ -8,9 +10,13 @@ namespace Framework.ConsoleApp
     {
         public void Run()
         {
+            if (File.Exists(".env"))
+                DotEnv.Config();
+
             BuildHost()
                 .Run();
         }
+
         private IHost BuildHost()
         {
             var host = new HostBuilder()

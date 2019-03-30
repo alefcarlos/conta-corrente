@@ -4,6 +4,7 @@ using Framework.ConsoleApp;
 using Framework.Data.MongoDB;
 using Framework.MessageBroker.RabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace Account.Consumer.TransactionHandler
 {
@@ -13,8 +14,12 @@ namespace Account.Consumer.TransactionHandler
         {
             services.AddHostedService<TransactionEventHandler>();
 
-            services.AddRabbitBroker("Account.Consumer.TransactionHandler", "amqp://guest:guest@localhost");
-            services.AddMongoDB("mongodb://localhost:27017/demodb");
+            var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
+            services.AddRabbitBroker("Account.Consumer.TransactionHandler", rabbitUri);
+
+            var mongoUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
+            services.AddMongoDB(mongoUri);
+
             services.AddMongoRepositories();
         }
     }

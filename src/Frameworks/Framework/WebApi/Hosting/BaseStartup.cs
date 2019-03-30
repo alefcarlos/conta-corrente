@@ -1,4 +1,5 @@
-﻿using FluentValidation.AspNetCore;
+﻿using dotenv.net;
+using FluentValidation.AspNetCore;
 using Framework.WebAPI.Documetation;
 using Framework.WebAPI.HealthCheck;
 using Framework.WebAPI.Hosting.Cors;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
+using System.IO;
 
 namespace Framework.WebAPI.Hosting
 {
@@ -19,6 +21,9 @@ namespace Framework.WebAPI.Hosting
     {
         public BaseStartup(IConfiguration configuration)
         {
+            if (File.Exists(".env"))
+                DotEnv.Config();
+
             Configuration = configuration;
         }
 
