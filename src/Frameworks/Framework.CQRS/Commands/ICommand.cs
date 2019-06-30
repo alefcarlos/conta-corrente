@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Framework.Shared;
+using MediatR;
 
 namespace Framework.CQRS.Commands
 {

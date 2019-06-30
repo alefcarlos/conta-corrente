@@ -7,8 +7,8 @@ namespace Account.Domain.Services
 {
     public interface IAccountService
     {
-        Task<(ErrorResult Err, AccountEntity Entity)> GetByIdAsync(Guid accountId);
-        Task CreateAsync(AccountEntity entity);
-        Task<(ErrorResult Err, AccountEntity Entity)> GetByIdentifierAsync(string identifier);
+        //Task<(Response Err, AccountEntity Entity)> GetByIdAsync(Guid accountId);
+        //Task CreateAsync(AccountEntity entity);
+        //Task<(Response Err, AccountEntity Entity)> GetByIdentifierAsync(string identifier);
     }
 }

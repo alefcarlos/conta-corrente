@@ -112,15 +112,12 @@ namespace WebApi.Account.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PostAccountRequest request)
         {
-            //var entity = new AccountEntity(request);
-            //await _accountService.CreateAsync(entity);
+            var response = await mediator.Send(new CreateAccount("", request.CPF));
 
-            var result = await mediator.Send(new CreateAccount("", request.CPF));
+            if (response.Invalid)
+                return ValidationError(response);
 
-            if (!result.IsValid)
-                return BadRequest();
-
-            return Created("", result.Result);
+            return Created("", response.Result);
         }
     }
 }

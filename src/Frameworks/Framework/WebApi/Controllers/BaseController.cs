@@ -7,9 +7,9 @@ namespace Framework.WebAPI
 {
     public class BaseController : ControllerBase
     {
-        protected BadRequestObjectResult ValidationError(ErrorResult validation)
+        protected BadRequestObjectResult ValidationError(Response validation)
         {
-            return BadRequest(PayloadResponse<List<string>>.Create(validation.Errors, false));
+            return BadRequest(PayloadResponse<List<string>>.Create(validation.Notifications, false));
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using Account.Application.Commands;
 using Account.Domain.Data.Repositories;
 using Account.Domain.Entities;
-using Framework.CQRS;
-using Framework.CQRS.Commands;
+using Framework.Shared;
 using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,9 +19,9 @@ namespace Account.Application.Handlers.Command
 
         public async Task<Response> Handle(CreateAccount request, CancellationToken cancellationToken)
         {
-            var result = await _accountRepository.CreateAsync(new AccountEntity(request.Name, request.CPF));
+            var entity = await _accountRepository.CreateAsync(new AccountEntity(request.Name, request.CPF));
 
-            return Response.Ok(result.AccountId);
+            return new Response(entity);
         }
     }
 }

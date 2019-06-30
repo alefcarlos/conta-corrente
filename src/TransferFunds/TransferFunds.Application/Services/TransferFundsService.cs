@@ -18,9 +18,9 @@ namespace TransferFunds.Application.Services
             _publisher = publisher;
         }
 
-        public async Task<ErrorResult> TransferAsync(Guid from, Guid to, decimal value)
+        public async Task<Response> TransferAsync(Guid from, Guid to, decimal value)
         {
-            var validation = ErrorResult.Valid();
+            var validation = Response.Valid();
 
             //Validar contas
             try
