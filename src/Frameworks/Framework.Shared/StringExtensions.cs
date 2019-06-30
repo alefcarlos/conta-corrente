@@ -1,25 +1,7 @@
-﻿using Account.Domain.Contracts;
-using FluentValidation;
-
-namespace Account.Domain.Validations
+﻿namespace Framework.Shared
 {
-    public class PostAccountRequestValidator : AbstractValidator<PostAccountRequest>
+    public static class StringExtensions
     {
-        public PostAccountRequestValidator()
-        {
-            RuleFor(r => r.CPF)
-                .NotEmpty()
-                .WithMessage("CPF é obrigatório.");
-
-            RuleFor(r => r.CPF)
-                .Must(IsCpf)
-                .WithMessage("CPF não é válido.");
-
-            RuleFor(r => r.Name)
-                .NotEmpty()
-                .WithMessage("Nome é obrigatório.");
-        }
-
         /// <summary>
         /// Verifica se é um CPF válido.
         /// </summary>
@@ -27,11 +9,8 @@ namespace Account.Domain.Validations
         /// <returns>bool</returns>
         public static bool IsCpf(string cpf)
         {
-            long isCpf;
-            if (string.IsNullOrEmpty(cpf) || !long.TryParse(cpf, out isCpf))
-            {
+            if (string.IsNullOrEmpty(cpf) || !long.TryParse(cpf, out long isCpf))
                 return false;
-            }
 
             if (cpf == "00000000000" || cpf == "11111111111" ||
                 cpf == "22222222222" || cpf == "33333333333" ||

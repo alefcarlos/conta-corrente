@@ -1,4 +1,4 @@
-﻿using Account.Domain.Validations;
+﻿using Account.WebApi.Validations;
 using FluentValidation.TestHelper;
 using Xunit;
 

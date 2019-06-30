@@ -1,6 +1,6 @@
 ﻿using Account.PublicShared.Enums;
 
-namespace Account.Domain.Contracts
+namespace Account.WebApi.Contracts
 {
     /// <summary>
     /// Request de transação

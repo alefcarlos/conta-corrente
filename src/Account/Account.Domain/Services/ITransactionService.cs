@@ -1,5 +1,4 @@
-﻿using Account.Domain.Contracts;
-using Account.Domain.Entities;
+﻿using Account.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -10,6 +9,6 @@ namespace Account.Domain.Services
     {
         Task<List<TransactionEntity>> GetTransactionsAsync(Guid accountId);
         Task<decimal> GetBalanceAsync(Guid accountId);
-        Task PostTransactionAsync(Guid accountId, PostTransactionRequest request);
+        //Task PostTransactionAsync(Guid accountId, PostTransactionRequest request);
     }
 }

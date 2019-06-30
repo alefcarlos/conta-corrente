@@ -2,7 +2,7 @@
 using Account.Domain.Entities;
 using Account.PublicShared.Enums;
 
-namespace Account.Domain.Contracts
+namespace Account.WebApi.Contracts
 {
     public class GetTransactionsResponse
     {

@@ -1,8 +1,8 @@
-﻿using Account.Domain.Contracts;
+﻿using Account.WebApi.Contracts;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Account.Domain.Validations
+namespace Account.WebApi.Validations
 {
     public static class RegisterValidationsExtensions
     {

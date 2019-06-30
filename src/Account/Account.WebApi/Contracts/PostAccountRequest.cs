@@ -1,4 +1,4 @@
-﻿namespace Account.Domain.Contracts
+﻿namespace Account.WebApi.Contracts
 {
     public class PostAccountRequest
     {

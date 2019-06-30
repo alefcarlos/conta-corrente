@@ -1,4 +1,3 @@
-using Account.Domain.Contracts;
 using Framework.Data.MongoDB;
 using System;
 
@@ -9,11 +8,11 @@ namespace Account.Domain.Entities
     /// </summary>
     public class AccountEntity : MongoEntityBase
     {
-        public AccountEntity(PostAccountRequest request)
+        public AccountEntity(string name, string cpf)
         {
             AccountId = Guid.NewGuid();
-            Name = request.Name;
-            CPF = request.CPF;
+            Name = name;
+            CPF = cpf;
         }
 
         /// <summary>

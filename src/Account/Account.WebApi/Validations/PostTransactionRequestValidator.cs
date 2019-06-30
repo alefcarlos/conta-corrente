@@ -1,7 +1,7 @@
-﻿using Account.Domain.Contracts;
+﻿using Account.WebApi.Contracts;
 using FluentValidation;
 
-namespace Account.Domain.Validations
+namespace Account.WebApi.Validations
 {
     public class PostTransactionRequestValidator : AbstractValidator<PostTransactionRequest>
     {

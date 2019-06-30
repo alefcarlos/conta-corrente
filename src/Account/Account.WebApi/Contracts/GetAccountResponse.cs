@@ -1,6 +1,6 @@
 using Account.Domain.Entities;
 
-namespace Account.Domain.Contracts
+namespace Account.WebApi.Contracts
 {
     /// <summary>
     /// Response de conta corrent
