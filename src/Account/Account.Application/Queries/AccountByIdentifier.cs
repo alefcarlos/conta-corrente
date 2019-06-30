@@ -7,8 +7,10 @@ namespace Account.Application.Queries
     {
         public string Identifier { get; }
 
-        public string Document { get; set; }
+        public string Document { get; }
         public Guid Id { get; }
+
+        public bool IsDocument => !string.IsNullOrWhiteSpace(Document);
 
         public AccountByIdentifier(string identifier)
         {

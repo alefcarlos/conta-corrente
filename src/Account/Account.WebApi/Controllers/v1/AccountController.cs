@@ -21,11 +21,9 @@ namespace WebApi.Account.Controllers.v1
     [Route("v{version:apiVersion}/[controller]")]
     public class AccountController : BaseController
     {
-        private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
-        public AccountController(IAccountService accountService, ITransactionService transactionService, IMediator mediator)
+        public AccountController(ITransactionService transactionService, IMediator mediator)
         {
-            _accountService = accountService;
             _transactionService = transactionService;
             this.mediator = mediator;
         }

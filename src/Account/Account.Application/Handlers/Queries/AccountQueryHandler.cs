@@ -22,7 +22,7 @@ namespace Account.Application.Handlers.Queries
             var response = new Response();
             AccountEntity entity;
 
-            if (!string.IsNullOrWhiteSpace(queryParameters.Document))
+            if (queryParameters.IsDocument)
                 entity = await _accountRepository.ReadFirstOrDefaultAsync(x => x.CPF == queryParameters.Document);
             else
                 entity = await _accountRepository.ReadFirstOrDefaultAsync(x => x.AccountId == queryParameters.Id);

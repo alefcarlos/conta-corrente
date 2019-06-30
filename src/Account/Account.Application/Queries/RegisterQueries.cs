@@ -8,6 +8,7 @@ namespace Account.Application.Queries
         public static IServiceCollection AddQueries(this IServiceCollection services)
         {
             services.AddMediatR(typeof(AccountByIdentifier));
+            services.AddMediatR(typeof(TransactionsByAccount));
 
             return services;
         }
