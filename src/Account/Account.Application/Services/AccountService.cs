@@ -1,8 +1,7 @@
-using Account.Domain.Data.Repositories;
+using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
 using Account.Domain.Services;
 using Framework.Shared;
-using MongoDB.Driver;
 using System;
 using System.Threading.Tasks;
 

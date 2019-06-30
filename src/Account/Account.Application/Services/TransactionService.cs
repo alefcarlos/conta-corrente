@@ -1,7 +1,6 @@
-﻿using Account.Domain.Data.Repositories;
+﻿using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
 using Account.Domain.Services;
-using Account.PublicShared.Events;
 using Framework.MessageBroker.RabbitMQ;
 using System;
 using System.Collections.Generic;

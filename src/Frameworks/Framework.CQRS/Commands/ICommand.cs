@@ -1,4 +1,5 @@
-﻿using Framework.Shared;
+﻿using Flunt.Notifications;
+using Framework.Shared;
 using MediatR;
 
 namespace Framework.CQRS.Commands

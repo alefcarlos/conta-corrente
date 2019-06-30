@@ -1,5 +1,4 @@
-﻿using Account.Domain.Entities;
-using Framework.CQRS.Commands;
+﻿using Framework.CQRS.Commands;
 
 namespace Account.Application.Commands
 {

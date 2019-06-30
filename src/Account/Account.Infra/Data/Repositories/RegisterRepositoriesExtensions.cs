@@ -1,7 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Account.Domain.Data.Repositories;
+﻿using Account.Application.Data.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace Account.Application.Data.Repositories
+namespace Account.Infra.Data.Repositories
 {
     public static class RegisterRepositoriesExtensions
     {

@@ -1,4 +1,4 @@
-﻿using Account.Domain.Data.Repositories;
+﻿using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
 using Account.PublicShared.Events;
 using Framework.MessageBroker.RabbitMQ;
@@ -9,20 +9,20 @@ using System.Threading.Tasks;
 
 namespace Account.Application.EventHandlers
 {
-    public class TransactionEventHandler : IHostedService
+    public class TransactionEventBackgroundServices : BackgroundService
     {
         private readonly IRabbitMQSubscriber _subscriber;
         private readonly ILogger _logger;
         private readonly ITransactionRepository _repository;
 
-        public TransactionEventHandler(IRabbitMQSubscriber subscriber, ILogger<TransactionEventHandler> logger, ITransactionRepository repository)
+        public TransactionEventBackgroundServices(IRabbitMQSubscriber subscriber, ILogger<TransactionEventBackgroundServices> logger, ITransactionRepository repository)
         {
             _subscriber = subscriber;
             _logger = logger;
             _repository = repository;
         }
 
-        public Task StartAsync(CancellationToken cancellationToken)
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
         {
             //Realizar bind do consummo da fila
             _subscriber.StartConsume<TransactionEvent>(ConsumeEvent);
@@ -32,18 +32,16 @@ namespace Account.Application.EventHandlers
         private bool ConsumeEvent(TransactionEvent message)
         {
             //Realizar double check se a conta existe
-
-
             _logger.LogInformation($"Persistir transação.");
             _repository.Create(new TransactionEntity(message));
             _logger.LogInformation($"Processado com sucesso!");
             return true;
         }
 
-        public Task StopAsync(CancellationToken cancellationToken)
+        public override void Dispose()
         {
             _subscriber.Dispose();
-            return Task.CompletedTask;
+            base.Dispose();
         }
     }
 }

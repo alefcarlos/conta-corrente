@@ -1,8 +1,8 @@
-﻿using Framework.Data.MongoDB;
-using Account.Domain.Data.Repositories;
+﻿using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
+using Framework.Data.MongoDB;
 
-namespace Account.Application.Data.Repositories
+namespace Account.Infra.Data.Repositories
 {
     public class TransactionRepository : MongoRepositoryBase<TransactionEntity>, ITransactionRepository
     {

@@ -14,7 +14,7 @@ namespace Framework.CQRS.Commands
     /// https://medium.com/tableless/fail-fast-validations-com-pipeline-behavior-no-mediatr-e-asp-net-core-f3854d3c21fa
     /// </summary>
     public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
-    where TRequest : IRequest<TResponse> where TResponse : Response
+        where TRequest : IRequest<TResponse> where TResponse : Response
     {
         private readonly IEnumerable<IValidator> _validators;
         private readonly ILogger _logger;

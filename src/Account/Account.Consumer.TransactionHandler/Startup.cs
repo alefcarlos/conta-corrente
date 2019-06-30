@@ -1,5 +1,5 @@
-﻿using Account.Application.Data.Repositories;
-using Account.Application.EventHandlers;
+﻿using Account.Application.EventHandlers;
+using Account.Infra.Data.Repositories;
 using Framework.ConsoleApp;
 using Framework.Data.MongoDB;
 using Framework.MessageBroker.RabbitMQ;
@@ -12,7 +12,7 @@ namespace Account.Consumer.TransactionHandler
     {
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddHostedService<TransactionEventHandler>();
+            services.AddHostedService<TransactionEventBackgroundServices>();
 
             var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
             services.AddRabbitBroker("Account.Consumer.TransactionHandler", rabbitUri, false);

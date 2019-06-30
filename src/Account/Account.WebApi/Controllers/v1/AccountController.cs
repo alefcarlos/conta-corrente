@@ -112,7 +112,7 @@ namespace WebApi.Account.Controllers.v1
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PostAccountRequest request)
         {
-            var response = await mediator.Send(new CreateAccount("", request.CPF));
+            var response = await mediator.Send(new CreateAccount(request.Name, request.CPF));
 
             if (response.Invalid)
                 return ValidationError(response);

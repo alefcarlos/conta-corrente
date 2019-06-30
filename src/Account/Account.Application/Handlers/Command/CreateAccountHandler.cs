@@ -1,5 +1,5 @@
 ﻿using Account.Application.Commands;
-using Account.Domain.Data.Repositories;
+using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
 using Framework.Shared;
 using MediatR;

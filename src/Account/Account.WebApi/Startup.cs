@@ -1,7 +1,8 @@
 ﻿using Account.Application.Commands;
-using Account.Application.Data.Repositories;
 using Account.Application.Services;
+using Account.Infra.Data.Repositories;
 using Account.WebApi.Validations;
+using Framework.CQRS;
 using Framework.Data.MongoDB;
 using Framework.MessageBroker.RabbitMQ;
 using Framework.WebAPI.Hosting;
@@ -10,7 +11,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using Framework.CQRS;
 
 namespace WebApi.Account
 {
