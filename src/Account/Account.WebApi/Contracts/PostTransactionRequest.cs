@@ -1,4 +1,4 @@
-﻿using Account.PublicShared.Enums;
+﻿using Account.Domain.Enums;
 
 namespace Account.WebApi.Contracts
 {

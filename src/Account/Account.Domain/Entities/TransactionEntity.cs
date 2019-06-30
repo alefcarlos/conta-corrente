@@ -1,5 +1,5 @@
-﻿using Account.PublicShared.Enums;
-using Account.PublicShared.Events;
+﻿using Account.Domain.Enums;
+using Account.Domain.Events;
 using Framework.Data.MongoDB;
 using System;
 

@@ -1,6 +1,6 @@
 ﻿using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
-using Account.PublicShared.Events;
+using Account.Domain.Events;
 using Framework.MessageBroker.RabbitMQ;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;

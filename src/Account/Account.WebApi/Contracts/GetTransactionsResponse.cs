@@ -1,6 +1,6 @@
-﻿using System;
-using Account.Domain.Entities;
-using Account.PublicShared.Enums;
+﻿using Account.Domain.Entities;
+using Account.Domain.Enums;
+using System;
 
 namespace Account.WebApi.Contracts
 {
