@@ -1,4 +1,5 @@
 ﻿using Account.Application.Commands;
+using Account.Application.Queries;
 using Account.Application.Services;
 using Account.Infra.Data.Repositories;
 using Account.WebApi.Validations;
@@ -34,6 +35,7 @@ namespace WebApi.Account
 
             services.AddCQRS();
             services.AddCommands();
+            services.AddQueries();
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

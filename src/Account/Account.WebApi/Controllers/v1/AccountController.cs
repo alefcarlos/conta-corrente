@@ -1,4 +1,6 @@
 ﻿using Account.Application.Commands;
+using Account.Application.Queries;
+using Account.Domain.Entities;
 using Account.Domain.Services;
 using Account.WebApi.Contracts;
 using Framework.WebAPI;
@@ -21,7 +23,6 @@ namespace WebApi.Account.Controllers.v1
     {
         private readonly IAccountService _accountService;
         private readonly ITransactionService _transactionService;
-
         public AccountController(IAccountService accountService, ITransactionService transactionService, IMediator mediator)
         {
             _accountService = accountService;
@@ -31,27 +32,28 @@ namespace WebApi.Account.Controllers.v1
 
         private readonly IMediator mediator;
 
-        ///// <summary>
-        ///// Obtém uma conta corrente
-        ///// </summary>
-        ///// <remarks>
-        ///// Exemplo:
-        ///// 
-        /////     GET v1/account/30039ca2-675b-4a12-bd2d-a4daf1be4ecb
-        /////     GET v1/account/41469262894
-        ///// </remarks>
-        ///// <param name="identifier">Identificação da conta, CPF ou ID</param>
-        //[HttpGet("{identifier}")]
-        //[ProducesResponseType(typeof(PayloadResponse<GetAccountResponse>), 200)]
-        //[ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
-        //public async Task<IActionResult> Get(string identifier)
-        //{
-        //    var (Err, Entity) = await _accountService.GetByIdentifierAsync(identifier);
-        //    if (!Err.IsValid)
-        //        return ValidationError(Err);
+        /// <summary>
+        /// Obtém uma conta corrente
+        /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        /// 
+        ///     GET v1/account/30039ca2-675b-4a12-bd2d-a4daf1be4ecb
+        ///     GET v1/account/41469262894
+        /// </remarks>
+        /// <param name="identifier">Identificação da conta, CPF ou ID</param>
+        [HttpGet("{identifier}")]
+        [ProducesResponseType(typeof(PayloadResponse<GetAccountResponse>), 200)]
+        [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
+        public async Task<IActionResult> Get(string identifier)
+        {
+            var response = await mediator.Send(new AccountByIdentifier(identifier));
 
-        //    return Ok(PayloadResponse<GetAccountResponse>.Create(new GetAccountResponse(Entity)));
-        //}
+            if (response.Invalid)
+                return ValidationError(response);
+
+            return Ok(PayloadResponse<GetAccountResponse>.Create(new GetAccountResponse(response.Result as AccountEntity)));
+        }
 
         ///// <summary>
         ///// Obtém o saldo de um determinado usuário

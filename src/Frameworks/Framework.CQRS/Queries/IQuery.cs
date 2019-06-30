@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Framework.Shared;
+using MediatR;
 
 namespace Framework.CQRS.Queries
 {
-    public interface IQuery
+    public interface IQuery : IRequest<Response>
     {
     }
 }

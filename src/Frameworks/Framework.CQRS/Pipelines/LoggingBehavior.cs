@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Framework.CQRS.Commands
+namespace Framework.CQRS.Pipelines
 {
     public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

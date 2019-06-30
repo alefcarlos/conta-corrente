@@ -1,4 +1,6 @@
 ﻿using Framework.CQRS.Commands;
+using Framework.CQRS.Pipelines;
+using Framework.CQRS.Queries;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

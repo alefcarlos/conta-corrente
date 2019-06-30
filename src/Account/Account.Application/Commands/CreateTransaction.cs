@@ -1,16 +1,14 @@
 ﻿using Account.Domain.Enums;
 using Account.Domain.Events;
-using Framework.Data.MongoDB;
+using Framework.CQRS.Commands;
 using System;
 
-namespace Account.Domain.Entities
+namespace Account.Application.Commands
 {
-    /// <summary>
-    /// Entidade de transação de valores entre contas
-    /// </summary>
-    public class TransactionEntity : MongoEntityBase
+    public class CreateTransaction : ICommand
     {
-        public TransactionEntity(TransactionEvent message)
+
+        public CreateTransaction(TransactionEvent message)
         {
             AccountId = message.AccountId;
             Date = message.Date;
@@ -18,7 +16,7 @@ namespace Account.Domain.Entities
             Type = message.Type;
         }
 
-        public TransactionEntity(Guid accountId, decimal value, ETransactionType type, DateTime date)
+        public CreateTransaction(Guid accountId, decimal value, ETransactionType type, DateTime date)
         {
             AccountId = accountId;
             Date = date;
@@ -26,21 +24,21 @@ namespace Account.Domain.Entities
             Type = type;
         }
 
-        public Guid AccountId { get; private set; }
+        public Guid AccountId { get; }
 
         /// <summary>
         /// Data e hora da transação
         /// </summary>
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; }
 
         /// <summary>
         /// Valor transacionado
         /// </summary>
-        public decimal Value { get; private set; }
+        public decimal Value { get; }
 
         /// <summary>
         /// Tipo da transação
         /// </summary>
-        public ETransactionType Type { get; private set; }
+        public ETransactionType Type { get; }
     }
 }

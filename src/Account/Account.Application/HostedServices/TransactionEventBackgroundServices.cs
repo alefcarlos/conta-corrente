@@ -1,7 +1,9 @@
-﻿using Account.Application.Data.Repositories;
+﻿using Account.Application.Commands;
+using Account.Application.Data.Repositories;
 using Account.Domain.Entities;
 using Account.Domain.Events;
 using Framework.MessageBroker.RabbitMQ;
+using MediatR;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Threading;
@@ -13,13 +15,13 @@ namespace Account.Application.EventHandlers
     {
         private readonly IRabbitMQSubscriber _subscriber;
         private readonly ILogger _logger;
-        private readonly ITransactionRepository _repository;
+        private readonly IMediator _mediator;
 
-        public TransactionEventBackgroundServices(IRabbitMQSubscriber subscriber, ILogger<TransactionEventBackgroundServices> logger, ITransactionRepository repository)
+        public TransactionEventBackgroundServices(IRabbitMQSubscriber subscriber, ILogger<TransactionEventBackgroundServices> logger, IMediator mediator)
         {
             _subscriber = subscriber;
             _logger = logger;
-            _repository = repository;
+            _mediator = mediator;
         }
 
         protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -31,11 +33,11 @@ namespace Account.Application.EventHandlers
 
         private bool ConsumeEvent(TransactionEvent message)
         {
-            //Realizar double check se a conta existe
-            _logger.LogInformation($"Persistir transação.");
-            _repository.Create(new TransactionEntity(message));
-            _logger.LogInformation($"Processado com sucesso!");
-            return true;
+            var result = _mediator.Send(new CreateTransaction(message)).Result;
+
+            _logger.LogInformation($"Processado..");
+
+            return result.Valid;
         }
 
         public override void Dispose()

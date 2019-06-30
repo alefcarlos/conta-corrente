@@ -46,7 +46,7 @@ namespace WebApi.TransferFunds.Controllers.v1
         {
             var transfer = await _service.TransferAsync(request.From, request.To, request.Value);
 
-            if (!transfer.IsValid)
+            if (!transfer.Invalid)
                 return ValidationError(transfer);
 
             return Ok(PayloadResponse.Create(true));

@@ -6,7 +6,7 @@ using MediatR;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Account.Application.Handlers.Command
+namespace Account.Application.Handlers.Commands
 {
 
     public class CreateAccountHandler : IRequestHandler<CreateAccount, Response>

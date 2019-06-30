@@ -4,7 +4,7 @@ namespace Framework.Shared
 {
     public class Response : Notifiable
     {
-        public object Result { get; }
+        public object Result { get; private set; }
 
         public Response()
         {
@@ -12,6 +12,11 @@ namespace Framework.Shared
         }
 
         public Response(object result)
+        {
+            SetResult(result);
+        }
+
+        public void SetResult(object result)
         {
             Result = result;
         }
