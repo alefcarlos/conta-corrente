@@ -58,7 +58,7 @@ npm install -g newman
 E após ter subido todas as aplicações basta executar
 
 ```bash
-newman run integrated_tests_collection.json
+newman run integrated_tests_collection.json -e docker.postman_environment.json
 ```
 
 ![Result](integrated_tests_result.png)

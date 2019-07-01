@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using TransferFunds.Domain.Contracts;
+using TransferFunds.WebApi.Contracts;
 
-namespace TransferFunds.Domain.Validations
+namespace TransferFunds.WebApi.Validations
 {
     public static class RegisterValidationsExtensions
     {

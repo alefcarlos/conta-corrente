@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TransferFunds.Domain\TransferFunds.Domain.csproj" />
+    <ProjectReference Include="..\TransferFunds.WebApi\TransferFunds.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

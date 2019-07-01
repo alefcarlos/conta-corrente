@@ -3,7 +3,7 @@ using System;
 using TransferFunds.Domain.Validations;
 using Xunit;
 
-namespace TransferFunds.Domain.Tests.Validations
+namespace TransferFunds.Infra.Validations
 {
     public class PostTransferFundsRequestValidatorTest
     {

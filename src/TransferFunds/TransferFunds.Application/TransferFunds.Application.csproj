@@ -12,7 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Frameworks\Framework.Shared\Framework.Shared.csproj" />
-    <ProjectReference Include="..\TransferFunds.Domain\TransferFunds.Domain.csproj" />
+    <ProjectReference Include="..\..\Account\Account.Domain\Account.Domain.csproj" />
+    <ProjectReference Include="..\..\Frameworks\Framework.CQRS\Framework.CQRS.csproj" />
   </ItemGroup>
 
 </Project>

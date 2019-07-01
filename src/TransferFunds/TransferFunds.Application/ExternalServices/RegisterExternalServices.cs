@@ -6,16 +6,13 @@ using System;
 using System.Net;
 using System.Net.Http;
 using TransferFunds.Application.Settings;
-using TransferFunds.Domain.Services;
 
-namespace TransferFunds.Application.Services
+namespace TransferFunds.Application.ExternalServices
 {
     public static class RegisterServicesExtensions
     {
-        public static IServiceCollection AddServices(this IServiceCollection services)
+        public static IServiceCollection AddExternalServices(this IServiceCollection services)
         {
-            services.AddScoped<ITransferFundsService, TransferFundsService>();
-
             var settings = new AccountSettings
             {
                 URI = Environment.GetEnvironmentVariable("ACCOUNT_URI")

@@ -1,4 +1,4 @@
-﻿namespace TransferFunds.Application.ViewModels
+﻿namespace TransferFunds.Application.ExternalServices
 {
     /// <summary>
     /// Payload das apis

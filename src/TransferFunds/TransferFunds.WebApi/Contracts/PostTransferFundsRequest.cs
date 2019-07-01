@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace TransferFunds.Domain.Contracts
+namespace TransferFunds.WebApi.Contracts
 {
     /// <summary>
     /// Request de transferência de valores entre contas

@@ -1,6 +1,6 @@
 ﻿using Account.Application.Commands;
+using Account.Application.HostedServices;
 using Account.Application.Queries;
-using Account.Application.Services;
 using Account.Infra.Data.Repositories;
 using Account.WebApi.Validations;
 using Framework.CQRS;
@@ -24,7 +24,6 @@ namespace WebApi.Account
         public override void AfterConfigureServices(IServiceCollection services)
         {
             services.AddValidators();
-            services.AddServices();
 
             var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
             services.AddRabbitBroker("Account.WebApi", rabbitUri);
@@ -36,6 +35,8 @@ namespace WebApi.Account
             services.AddCQRS();
             services.AddCommands();
             services.AddQueries();
+
+            services.AddHostedService<TransactionEventBackgroundServices>();
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

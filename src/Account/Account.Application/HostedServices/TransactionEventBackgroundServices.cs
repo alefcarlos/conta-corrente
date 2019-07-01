@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Account.Application.EventHandlers
+namespace Account.Application.HostedServices
 {
     public class TransactionEventBackgroundServices : BackgroundService
     {

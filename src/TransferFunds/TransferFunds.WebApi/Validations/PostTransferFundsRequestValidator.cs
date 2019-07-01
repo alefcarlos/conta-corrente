@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using TransferFunds.Domain.Contracts;
+using TransferFunds.WebApi.Contracts;
 
-namespace TransferFunds.Domain.Validations
+namespace TransferFunds.WebApi.Validations
 {
     public class PostTransferFundsRequestValidator : AbstractValidator<PostTransferFundsRequest>
     {

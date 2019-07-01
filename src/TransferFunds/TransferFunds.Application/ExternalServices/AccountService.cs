@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using TransferFunds.Application.Settings;
 using TransferFunds.Application.ViewModels;
 
-namespace TransferFunds.Application.Services
+namespace TransferFunds.Application.ExternalServices
 {
     /// <summary>
     /// Serviço HTTP que consome a api Account

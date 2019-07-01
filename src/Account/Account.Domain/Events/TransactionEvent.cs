@@ -13,10 +13,10 @@ namespace Account.Domain.Events
 
         }
 
-        public TransactionEvent(Guid accountId, decimal value, ETransactionType type)
+        public TransactionEvent(Guid accountId, DateTime date, decimal value, ETransactionType type)
         {
             AccountId = accountId;
-            Date = DateTime.Now;
+            Date = date;
             Value = value;
             Type = type;
         }
