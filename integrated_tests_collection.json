@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1eb50e43-9a41-46d0-bc0c-2bf1364ba969",
+		"_postman_id": "b81bfad6-a49e-496c-8697-f6a822b673b0",
 		"name": "ContaCorrente",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -13,12 +13,12 @@
 					"script": {
 						"id": "94f47834-d90f-4f12-9a40-3cff3fb3a1fe",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
 							"});",
 							"",
 							"var result = pm.response.json();",
-							"pm.globals.set(\"primeira_conta\", result.data);",
+							"pm.globals.set(\"primeira_conta\", result.accountId);",
 							""
 						],
 						"type": "text/javascript"
@@ -40,12 +40,11 @@
 					"raw": "{\n\t\"name\" : \"Alef\",\n\t\"CPF\": \"41469262894\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account",
+					"raw": "http://{{account_host}}/v1/account",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account"
@@ -62,12 +61,12 @@
 					"script": {
 						"id": "8a63048a-5116-4f3c-8c16-38885488d5b0",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
 							"});",
 							"",
 							"var result = pm.response.json();",
-							"pm.globals.set(\"segunda_conta\", result.data);"
+							"pm.globals.set(\"segunda_conta\", result.accountId);"
 						],
 						"type": "text/javascript"
 					}
@@ -88,12 +87,11 @@
 					"raw": "{\n\t\"name\" : \"Zézinho\",\n\t\"CPF\": \"10805064036\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account",
+					"raw": "http://{{account_host}}/v1/account",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account"
@@ -110,8 +108,8 @@
 					"script": {
 						"id": "e231f8a7-b86b-40e0-a9fd-1401ca44c90b",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
+							"pm.test(\"Status code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
 							"});",
 							"",
 							"function sleep(milisecond) {",
@@ -142,12 +140,11 @@
 					"raw": "{\n\t\"Value\": 1000,\n\t\"Type\": 1\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/transactions",
+					"raw": "http://{{account_host}}/v1/account/{{primeira_conta}}/transactions",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account",
@@ -182,17 +179,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/balance",
+					"raw": "http://{{account_host}}/v1/account/{{primeira_conta}}/balance",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account",
@@ -243,12 +235,11 @@
 					"raw": "{\n\t\"from\": \"{{primeira_conta}}\",\n\t\"to\": \"{{segunda_conta}}\",\n\t\"value\": 233.33\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8182/v1/transfer",
+					"raw": "http://{{transfer_host}}/v1/transfer",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{transfer_host}}"
 					],
-					"port": "8182",
 					"path": [
 						"v1",
 						"transfer"
@@ -281,17 +272,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/balance",
+					"raw": "http://{{account_host}}/v1/account/{{primeira_conta}}/balance",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account",
@@ -326,17 +312,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account/{{segunda_conta}}/balance",
+					"raw": "http://{{account_host}}/v1/account/{{segunda_conta}}/balance",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account",
@@ -371,17 +352,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account/{{primeira_conta}}/transactions",
+					"raw": "http://{{account_host}}/v1/account/{{primeira_conta}}/transactions",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account",
@@ -416,17 +392,12 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": ""
-				},
 				"url": {
-					"raw": "http://localhost:8181/v1/account/{{segunda_conta}}/transactions",
+					"raw": "http://{{account_host}}/v1/account/{{segunda_conta}}/transactions",
 					"protocol": "http",
 					"host": [
-						"localhost"
+						"{{account_host}}"
 					],
-					"port": "8181",
 					"path": [
 						"v1",
 						"account",

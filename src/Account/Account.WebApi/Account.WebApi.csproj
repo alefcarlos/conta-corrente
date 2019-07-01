@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Frameworks\Framework\Framework.csproj" />
-    <ProjectReference Include="..\Account.Application\Account.Application.csproj" />
+    <ProjectReference Include="..\Account.Infra\Account.Infra.csproj" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

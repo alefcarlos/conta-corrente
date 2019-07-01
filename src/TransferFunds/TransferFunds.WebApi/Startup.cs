@@ -1,12 +1,14 @@
-﻿using Framework.MessageBroker.RabbitMQ;
+﻿using Framework.CQRS;
+using Framework.MessageBroker.RabbitMQ;
 using Framework.WebAPI.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TransferFunds.Application.Services;
-using TransferFunds.Domain.Validations;
+using TransferFunds.Application.Commands;
+using TransferFunds.Application.ExternalServices;
+using TransferFunds.WebApi.Validations;
 
 namespace WebApi.TransferFunds
 {
@@ -19,10 +21,13 @@ namespace WebApi.TransferFunds
         public override void AfterConfigureServices(IServiceCollection services)
         {
             services.AddValidators();
-            services.AddServices();
 
             var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
             services.AddRabbitBroker("TransferFunds.WebApi", rabbitUri);
+
+            services.AddExternalServices();
+            services.AddCQRS();
+            services.AddCommands();
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

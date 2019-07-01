@@ -1,5 +1,5 @@
-﻿using Account.PublicShared.Enums;
-using Account.PublicShared.Events;
+﻿using Account.Domain.Enums;
+using Account.Domain.Events;
 using Framework.Data.MongoDB;
 using System;
 
@@ -18,10 +18,10 @@ namespace Account.Domain.Entities
             Type = message.Type;
         }
 
-        public TransactionEntity(Guid accountId, decimal value, ETransactionType type)
+        public TransactionEntity(Guid accountId, decimal value, ETransactionType type, DateTime date)
         {
             AccountId = accountId;
-            Date = DateTime.Now;
+            Date = date;
             Value = value;
             Type = type;
         }

@@ -1,6 +1,9 @@
-﻿using Account.Application.Data.Repositories;
-using Account.Application.Services;
-using Account.Domain.Validations;
+﻿using Account.Application.Commands;
+using Account.Application.HostedServices;
+using Account.Application.Queries;
+using Account.Infra.Data.Repositories;
+using Account.WebApi.Validations;
+using Framework.CQRS;
 using Framework.Data.MongoDB;
 using Framework.MessageBroker.RabbitMQ;
 using Framework.WebAPI.Hosting;
@@ -21,14 +24,19 @@ namespace WebApi.Account
         public override void AfterConfigureServices(IServiceCollection services)
         {
             services.AddValidators();
-            services.AddServices();
 
             var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
             services.AddRabbitBroker("Account.WebApi", rabbitUri);
-            
+
             var mongoUri = Environment.GetEnvironmentVariable("MONGO_URI");
             services.AddMongoDB(mongoUri);
             services.AddMongoRepositories();
+
+            services.AddCQRS();
+            services.AddCommands();
+            services.AddQueries();
+
+            services.AddHostedService<TransactionEventBackgroundServices>();
         }
 
         public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)

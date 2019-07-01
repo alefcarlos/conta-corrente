@@ -1,8 +1,10 @@
-﻿using Account.Domain.Contracts;
+﻿using Account.Application.Commands;
+using Account.Application.Queries;
 using Account.Domain.Entities;
-using Account.Domain.Services;
+using Account.WebApi.Contracts;
 using Framework.WebAPI;
 using Framework.WebAPI.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -19,14 +21,12 @@ namespace WebApi.Account.Controllers.v1
     [Route("v{version:apiVersion}/[controller]")]
     public class AccountController : BaseController
     {
-        private readonly IAccountService _accountService;
-        private readonly ITransactionService _transactionService;
-
-        public AccountController(IAccountService accountService, ITransactionService transactionService)
+        public AccountController(IMediator mediator)
         {
-            _accountService = accountService;
-            _transactionService = transactionService;
+            this.mediator = mediator;
         }
+
+        private readonly IMediator mediator;
 
         /// <summary>
         /// Obtém uma conta corrente
@@ -43,11 +43,12 @@ namespace WebApi.Account.Controllers.v1
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         public async Task<IActionResult> Get(string identifier)
         {
-            var (Err, Entity) = await _accountService.GetByIdentifierAsync(identifier);
-            if (!Err.IsValid)
-                return ValidationError(Err);
+            var response = await mediator.Send(new AccountByIdentifier(identifier));
 
-            return Ok(PayloadResponse<GetAccountResponse>.Create(new GetAccountResponse(Entity)));
+            if (response.Invalid)
+                return ValidationError(response);
+
+            return Ok(PayloadResponse<GetAccountResponse>.Create(new GetAccountResponse(response.Result as AccountEntity)));
         }
 
         /// <summary>
@@ -64,9 +65,14 @@ namespace WebApi.Account.Controllers.v1
         [HttpGet("{account_id}/balance")]
         public async Task<IActionResult> GetBalance([FromRoute]Guid account_id)
         {
-            var result = await _transactionService.GetBalanceAsync(account_id);
+            var response = await mediator.Send(new TransactionsByAccount(account_id));
 
-            return Ok(PayloadResponse<decimal>.Create(result));
+            if (response.Invalid)
+                return ValidationError(response);
+
+            var transactions = response.Result as List<TransactionEntity>;
+
+            return Ok(PayloadResponse<decimal>.Create(transactions.Sum(x => x.Value)));
         }
 
 
@@ -79,7 +85,12 @@ namespace WebApi.Account.Controllers.v1
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         public async Task<IActionResult> GetTransactions([FromRoute]Guid account_id)
         {
-            var transactions = await _transactionService.GetTransactionsAsync(account_id);
+            var response = await mediator.Send(new TransactionsByAccount(account_id));
+
+            if (response.Invalid)
+                return ValidationError(response);
+
+            var transactions = response.Result as List<TransactionEntity>;
 
             var result = transactions.Select(tr => new GetTransactionsResponse(tr)).ToList();
 
@@ -92,27 +103,32 @@ namespace WebApi.Account.Controllers.v1
         /// <param name="request">Dados da transação</param>
         /// <param name="account_id">ID da conta</param>
         [HttpPost("{account_id}/transactions")]
-        [ProducesResponseType(typeof(PayloadResponse), 200)]
+        [ProducesResponseType(typeof(PayloadResponse), 201)]
         public async Task<IActionResult> PosTransaction([FromRoute]Guid account_id, [FromBody] PostTransactionRequest request)
         {
-            await _transactionService.PostTransactionAsync(account_id, request);
+            var response = await mediator.Send(new PublishTransaction(account_id, request.Value, request.Type));
 
-            return Ok(PayloadResponse.Create());
+            if (response.Invalid)
+                return ValidationError(response);
+
+            return Created("", PayloadResponse.Create());
         }
 
         /// <summary>
         /// Cria uma nova conta corrente
         /// </summary>
         /// <param name="request">Dados da conta</param>
-        [ProducesResponseType(typeof(PayloadResponse<Guid>), 200)]
+        [ProducesResponseType(typeof(PayloadResponse<AccountEntity>), 201)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] PostAccountRequest request)
         {
-            var entity = new AccountEntity(request);
-            await _accountService.CreateAsync(entity);
+            var response = await mediator.Send(new CreateAccount(request.Name, request.CPF));
 
-            return Ok(PayloadResponse<Guid>.Create(entity.AccountId));
+            if (response.Invalid)
+                return ValidationError(response);
+
+            return Created("", response.Result);
         }
     }
 }

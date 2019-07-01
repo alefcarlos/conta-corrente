@@ -2,7 +2,7 @@
 using Shouldly;
 using System;
 using System.Threading.Tasks;
-using TransferFunds.Application.Services;
+using TransferFunds.Application.ExternalServices;
 using Xunit;
 
 namespace TransferFunds.Application.Tests.Services

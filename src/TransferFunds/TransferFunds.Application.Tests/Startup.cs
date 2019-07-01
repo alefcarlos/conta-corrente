@@ -1,7 +1,7 @@
 ﻿using Framework.Test;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using TransferFunds.Application.Services;
+using TransferFunds.Application.ExternalServices;
 using TransferFunds.Application.Settings;
 
 namespace TransferFunds.Application.Tests

@@ -1,12 +1,13 @@
 ﻿using Framework.WebAPI;
 using Framework.WebAPI.Responses;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransferFunds.Domain.Contracts;
-using TransferFunds.Domain.Services;
+using TransferFunds.Application.Commands;
+using TransferFunds.WebApi.Contracts;
 
 namespace WebApi.TransferFunds.Controllers.v1
 {
@@ -18,12 +19,12 @@ namespace WebApi.TransferFunds.Controllers.v1
     [Route("v{version:apiVersion}/[controller]")]
     public class TransferController : BaseController
     {
-        private readonly ITransferFundsService _service;
-
-        public TransferController(ITransferFundsService service)
+        public TransferController(IMediator mediator)
         {
-            _service = service;
+            this.mediator = mediator;
         }
+
+        private readonly IMediator mediator;
 
         /// <summary>
         /// Realiza uma transferência entre contas
@@ -40,14 +41,14 @@ namespace WebApi.TransferFunds.Controllers.v1
         /// </remarks>
         /// <param name="request">Dados da transfêrencia</param>
         [HttpPost]
-        [ProducesResponseType(typeof(PayloadResponse), 200)]
+        [ProducesResponseType(typeof(PayloadResponse), 201)]
         [ProducesResponseType(typeof(PayloadResponse<List<string>>), 400)]
         public async Task<IActionResult> Post(PostTransferFundsRequest request)
         {
-            var transfer = await _service.TransferAsync(request.From, request.To, request.Value);
+            var response = await mediator.Send(new Transfer(request.From, request.To, request.Value));
 
-            if (!transfer.IsValid)
-                return ValidationError(transfer);
+            if (response.Invalid)
+                return ValidationError(response);
 
             return Ok(PayloadResponse.Create(true));
         }
