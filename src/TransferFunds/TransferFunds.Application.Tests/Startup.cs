@@ -12,7 +12,7 @@ namespace TransferFunds.Application.Tests
         {
             var settings = new AccountSettings
             {
-                URI = Environment.GetEnvironmentVariable("ACCOUNT_URI")
+                Uri = Environment.GetEnvironmentVariable("ACCOUNT_URI")
             };
 
             services.AddSingleton(settings);

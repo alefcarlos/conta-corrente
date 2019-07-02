@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
@@ -11,14 +12,9 @@ namespace TransferFunds.Application.ExternalServices
 {
     public static class RegisterServicesExtensions
     {
-        public static IServiceCollection AddExternalServices(this IServiceCollection services)
+        public static IServiceCollection AddExternalServices(this IServiceCollection services, IConfiguration configuration)
         {
-            var settings = new AccountSettings
-            {
-                URI = Environment.GetEnvironmentVariable("ACCOUNT_URI")
-            };
-
-            services.AddSingleton(settings);
+            services.Configure<AccountSettings>(configuration.GetSection(nameof(AccountSettings)));
 
             var timeoutPolicy = Policy.TimeoutAsync<HttpResponseMessage>(10);
 
@@ -26,7 +22,6 @@ namespace TransferFunds.Application.ExternalServices
             services.AddHttpClient<AccountService>()
                 .AddPolicyHandler(GetRetryPolicy())
                 .AddPolicyHandler(timeoutPolicy);
-
 
             return services;
         }

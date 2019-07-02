@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using System;
 
@@ -13,11 +14,11 @@ namespace Framework.MessageBroker.RabbitMQ
         private bool disposed;
         private ConnectionFactory factory = new ConnectionFactory();
 
-        public RabbitMQConnectionWrapper(string appName, string rabbitUri)
+        public RabbitMQConnectionWrapper(IOptions<RabbitSettings> settings)
         {
             disposed = false;
-            _appName = appName;
-            _rabbitUri = rabbitUri;
+            _appName = settings.Value.ClientName;
+            _rabbitUri = settings.Value.Uri;
 
             factory.Uri = new Uri(_rabbitUri);
             factory.AutomaticRecoveryEnabled = true;

@@ -1,5 +1,4 @@
-﻿using dotenv.net;
-using FluentValidation.AspNetCore;
+﻿using FluentValidation.AspNetCore;
 using Framework.WebAPI.Documetation;
 using Framework.WebAPI.HealthCheck;
 using Framework.WebAPI.Hosting.Cors;
@@ -21,9 +20,6 @@ namespace Framework.WebAPI.Hosting
     {
         public BaseStartup(IConfiguration configuration)
         {
-            if (File.Exists(".env"))
-                DotEnv.Config();
-
             Configuration = configuration;
         }
 

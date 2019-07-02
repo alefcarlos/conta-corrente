@@ -21,11 +21,9 @@ namespace WebApi.TransferFunds
         public override void AfterConfigureServices(IServiceCollection services)
         {
             services.AddValidators();
+            services.AddRabbitBroker(Configuration);
 
-            var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
-            services.AddRabbitBroker("TransferFunds.WebApi", rabbitUri);
-
-            services.AddExternalServices();
+            services.AddExternalServices(Configuration);
             services.AddCQRS();
             services.AddCommands();
         }

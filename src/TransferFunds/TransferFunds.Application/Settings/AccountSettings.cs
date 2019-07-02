@@ -5,6 +5,6 @@
     /// </summary>
     public class AccountSettings
     {
-        public string URI { get; set; }
+        public string Uri { get; set; }
     }
 }

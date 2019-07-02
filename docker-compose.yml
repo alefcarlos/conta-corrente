@@ -7,8 +7,9 @@ services:
     container_name: account-webapi
     restart: always
     environment:
-      - MONGO_URI=mongodb://mongodb:27017/contacorrente
-      - RABBITMQ_URI=amqp://guest:guest@rabbitmq
+      - MongoDBSettings__Uri=mongodb://mongodb:27017/contacorrente
+      - RabbitSettings__ClientName=Account.WebApi
+      - RabbitSettings__Uri=amqp://guest:guest@rabbitmq
     ports:
       - "8181:80"
     links:
@@ -24,8 +25,9 @@ services:
     container_name: transferfunds-webapi
     restart: always
     environment:
-      - RABBITMQ_URI=amqp://guest:guest@rabbitmq
-      - ACCOUNT_URI=http://account-webapi/
+      - RabbitSettings__ClientName=Account.WebApi
+      - RabbitSettings__Uri=amqp://guest:guest@rabbitmq
+      - AccountSettings__Uri=http://account-webapi/
     ports:
       - "8182:80"
     links:

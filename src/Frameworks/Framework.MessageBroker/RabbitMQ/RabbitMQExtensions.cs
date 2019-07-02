@@ -1,13 +1,17 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace Framework.MessageBroker.RabbitMQ
 {
     public static class RabbitMQExtensions
     {
-        public static IServiceCollection AddRabbitBroker(this IServiceCollection services, string appName, string uri, bool addHealthCheck = true)
+        public static IServiceCollection AddRabbitBroker(this IServiceCollection services, IConfiguration configuration, bool addHealthCheck = true)
         {
+            services.Configure<RabbitSettings>(configuration.GetSection(nameof(RabbitSettings)));
+
             //Adicionar publisher como singleton, pois devemos sempre compartilhar a conexão TCP
-            services.AddSingleton<RabbitMQConnectionWrapper>((provider) => new RabbitMQConnectionWrapper(appName, uri));
+            services.AddSingleton<RabbitMQConnectionWrapper>();
 
             services.AddSingleton<IRabbitMQPublisher, RabbitMQPublisher>();
 
@@ -16,8 +20,10 @@ namespace Framework.MessageBroker.RabbitMQ
 
             if (addHealthCheck)
             {
+                var provider = services.BuildServiceProvider();
+                var options = provider.GetRequiredService<IOptions<RabbitSettings>>().Value;
                 services.AddHealthChecks()
-                    .AddRabbitMQ(uri, name: "rabbitmq", tags: new string[] { "messagebroker", "rabbitmq" });
+                    .AddRabbitMQ(options.Uri, name: "rabbitmq", tags: new string[] { "messagebroker", "rabbitmq" });
             }
 
             return services;

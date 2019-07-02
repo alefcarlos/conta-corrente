@@ -25,11 +25,9 @@ namespace WebApi.Account
         {
             services.AddValidators();
 
-            var rabbitUri = Environment.GetEnvironmentVariable("RABBITMQ_URI");
-            services.AddRabbitBroker("Account.WebApi", rabbitUri);
+            services.AddRabbitBroker(Configuration);
 
-            var mongoUri = Environment.GetEnvironmentVariable("MONGO_URI");
-            services.AddMongoDB(mongoUri);
+            services.AddMongoDB(Configuration);
             services.AddMongoRepositories();
 
             services.AddCQRS();

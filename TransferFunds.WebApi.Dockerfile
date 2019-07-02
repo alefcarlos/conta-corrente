@@ -1,4 +1,8 @@
 FROM microsoft/dotnet:2.2-sdk as builder
+
+ENV HTTP_PROXY http://alef.dbserver:PlusUltra12@10.1.10.4:9090/
+ENV HTTPS_PROXY http://alef.dbserver:PlusUltra12@10.1.10.4:9090/
+
 COPY . /
 WORKDIR /src/TransferFunds/TransferFunds.WebApi
 RUN dotnet restore --no-cache

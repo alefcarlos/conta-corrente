@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Options;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -15,12 +16,12 @@ namespace TransferFunds.Application.ExternalServices
     {
         private readonly HttpClient _client;
 
-        public AccountService(HttpClient client, AccountSettings settings)
+        public AccountService(HttpClient client, IOptions<AccountSettings> settings)
         {
             _client = client;
             _client.DefaultRequestHeaders.Accept.Clear();
             _client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            _client.BaseAddress = new System.Uri(settings.URI);
+            _client.BaseAddress = new System.Uri(settings.Value.Uri);
         }
 
         public async Task<GetAccountResponse> GetAccountByIDAsync(Guid accountId)
