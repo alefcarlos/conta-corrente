@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using MediatR;
+﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Account.Application.Commands
@@ -10,13 +9,6 @@ namespace Account.Application.Commands
         {
             services.AddMediatR(typeof(CreateAccount));
             services.AddMediatR(typeof(PublishTransaction));
-
-            AssemblyScanner.FindValidatorsInAssembly(typeof(RegisterCommands).Assembly)
-                            .ForEach(result =>
-                            {
-                                services.AddTransient(result.InterfaceType, result.ValidatorType);
-                            }
-                );
 
             return services;
         }

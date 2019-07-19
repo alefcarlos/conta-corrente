@@ -1,11 +1,12 @@
 ﻿using Account.Domain.Enums;
 using Account.Domain.Events;
+using Flunt.Notifications;
 using Framework.CQRS.Commands;
 using System;
 
 namespace Account.Application.Commands
 {
-    public class CreateTransaction : ICommand
+    public class CreateTransaction : Notifiable, ICommand
     {
 
         public CreateTransaction(TransactionEvent message)
