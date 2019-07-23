@@ -9,7 +9,7 @@ namespace Framework.CQRS.Pipelines
 {
     public class FailFastRequestBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
             where TRequest : Notifiable, IRequest<TResponse>
-            where TResponse : Response
+            where TResponse : Response, new()
     {
         public FailFastRequestBehavior(ILogger<LoggingBehavior<TRequest, TResponse>> logger)
         {
@@ -24,7 +24,7 @@ namespace Framework.CQRS.Pipelines
 
             if (request.Invalid)
             {
-                var response = new Response();
+                var response = new TResponse();
                 response.AddNotifications(request.Notifications);
                 return Task.FromResult(response as TResponse);
             }
