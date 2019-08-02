@@ -13,7 +13,6 @@ namespace Framework.Test
                 DotEnv.Config();
 
         }
-
         public abstract void ConfigureServices(IServiceCollection services);
     }
 }

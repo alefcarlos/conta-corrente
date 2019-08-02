@@ -11,7 +11,9 @@ namespace Framework.Test
             ServiceProvider = ConfigureService();
         }
 
-        protected readonly IServiceProvider ServiceProvider;
+        private IServiceProvider ServiceProvider { get; }
+
+        public IServiceScope Scope => ServiceProvider.CreateScope();
 
         private IServiceProvider ConfigureService()
         {
@@ -26,9 +28,10 @@ namespace Framework.Test
             return services.BuildServiceProvider();
         }
 
-        protected TService GetService<TService>()
+        public void Dispose()
         {
-            return ServiceProvider.GetService<TService>();
+            System.Diagnostics.Debugger.Log(0, "Dispose", "Disposing BaseTest");
+            Scope.Dispose();
         }
     }
 }

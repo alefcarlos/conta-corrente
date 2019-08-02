@@ -1,4 +1,5 @@
 ﻿using Framework.Test;
+using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using System;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace TransferFunds.Application.Tests.Services
         public async Task GetAccountById_ShouldSuccess()
         {
             //Arrange
-            var service = GetService<AccountService>();
+            var service = Scope.ServiceProvider.GetRequiredService<AccountService>();
 
             //Act
             var accountId = await service.CreateAccountAsync(new ViewModels.PostAccountRequest
@@ -34,7 +35,7 @@ namespace TransferFunds.Application.Tests.Services
         public void GetAccountById_ShouldHaveError()
         {
             //Arrange
-            var service = GetService<AccountService>();
+            var service = Scope.ServiceProvider.GetRequiredService<AccountService>();
 
             //Assert
             Func<Task> f = async () => { await service.GetAccountByIDAsync(new System.Guid()); };
