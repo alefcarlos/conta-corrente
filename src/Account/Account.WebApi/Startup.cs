@@ -3,21 +3,20 @@ using Account.Application.HostedServices;
 using Account.Application.Queries;
 using Account.Infra.Data.Repositories;
 using Account.WebApi.Validations;
-using Framework.CQRS;
 using Framework.Data.MongoDB;
 using Framework.MessageBroker.RabbitMQ;
-using Framework.WebAPI.Hosting;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
+using PlusUltra.WebApi.Hosting;
 
 namespace WebApi.Account
 {
-    public class Startup : BaseStartup
+    public class Startup : WebApiStartup
     {
-        public Startup(IConfiguration configuration) : base(configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment) : base(configuration, environment, useAuthentication: false)
         {
         }
 
@@ -30,27 +29,26 @@ namespace WebApi.Account
             services.AddMongoDB(Configuration);
             services.AddMongoRepositories();
 
-            services.AddCQRS();
+            services.AddMediatrServices();
             services.AddCommands();
             services.AddQueries();
 
             services.AddHostedService<TransactionEventBackgroundServices>();
         }
 
-        public override void BeforeConfigureApp(IApplicationBuilder app, IHostingEnvironment env)
+        public override void BeforeConfigureApp(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
-                app.UseHttpsRedirection();
-            }
         }
 
-        public override void AfterConfigureApp(IApplicationBuilder app, IHostingEnvironment env)
+        public override void ConfigureAfterRouting(IApplicationBuilder app)
+        {
+        }
+
+        public override void MapEndpoints(IEndpointRouteBuilder endpoints)
+        {
+        }
+
+        public override void AfterConfigureApp(IApplicationBuilder app)
         {
         }
     }

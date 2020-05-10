@@ -1,12 +1,9 @@
 ﻿using Account.Domain.Enums;
-using Framework.MessageBroker;
-using Framework.MessageBroker.RabbitMQ;
 using System;
 
 namespace Account.Domain.Events
 {
-    [RabbitMQProperties(Durable = true)]
-    public class TransactionEvent : BaseMessage
+    public class TransactionEvent
     {
         public TransactionEvent()
         {
